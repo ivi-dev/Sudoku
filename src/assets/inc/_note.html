@@ -1,0 +1,19 @@
+<div v-if="gameComplete === true" 
+	 class="note success animate__animated animate__flipInX">
+	<div class="icon success">
+		<i class="fa-solid fa-circle-check"></i>
+	</div>
+	<h1>Congrats!</h1> 
+	You've completed the game!<br>
+	Go ahead and start a new one. Increase the difficulty for
+	an extra challenge.
+</div>
+<div v-else-if="gameComplete === false" 
+	 class="note error animate__animated animate__flipInX">
+	<div class="icon error">
+		<i class="fa-solid fa-circle-exclamation"></i>
+	</div>
+	<h1>Sorry!</h1>
+	You've made one or more errors filling the grid!<br>
+	Find and correct them to complete the game.
+</div>

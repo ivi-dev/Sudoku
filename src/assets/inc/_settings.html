@@ -1,0 +1,37 @@
+<div :class="[{ 'hidden-fix-left': !menus.settings.visible }, 'settings', 'menu']">
+	<button :class="[{ 'hidden': menus.anyVisible }, 'fixed-button', 'show-settings']" 
+		    @click="toggleSettings(true)"
+		    title="Settings (S)">
+		<i class="fa-solid fa-gear"></i>
+	</button>
+	<header>
+		<i class="fa-solid fa-gear"></i>
+		<h1>Settings</h1>
+		<button class="close" @click="toggleSettings(false)">
+			<i class="fa-solid fa-xmark"></i>
+		</button>
+	</header>
+	<form class="body">
+		<div class="setting">
+			<label>Difficulty: </label>
+			<select class="control" 
+				    @change="askChangeDifficulty($event.srcElement)">
+				<option v-for="(option, name) in menus.settings.difficulty.options" 
+					    :value="name"
+					    :selected="name === menus.settings.difficulty.active">
+				    {{ name }}
+				</option>
+			</select>
+		</div>
+		<div class="setting">
+			<label>Theme: </label>
+			<select class="control" v-model="menus.settings.theme.active">
+				<option v-for="theme in menus.settings.theme.options" 
+						:value="theme"
+						:selected="theme === menus.settings.theme.active">
+					{{ theme }}
+				</option>
+			</select>
+		</div>
+	</form>
+</div>

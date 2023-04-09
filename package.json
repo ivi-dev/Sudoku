@@ -13,5 +13,8 @@
     "puzzle game"
   ],
   "author": "Iliyan Videv",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^12.9.0"
+  }
 }

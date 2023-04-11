@@ -28,32 +28,53 @@ function arraysEqual(arr1, arr2) {
 describe('Menu operations', () => {
 
   describe('Start a new game', () => {
-    const expectedNewGamePromptText = 'By starting a new game you\'ll lose your ' +
+    const expectedNewGamePromptBody = 'By starting a new game you\'ll lose your ' +
                                       'progress in the current one. Are you sure ' +
                                       'you want to do that?'
 
-    // TODO: Consider swaping the browser prompts for DOM ones for testability
+    describe('A confirmation prompt with the correct text appears on-screen', () => {
+      it('upon clicking the \'Start a new game\' button', () => {
+        cy.visit('http://localhost/sudoku')
+        cy.get('.prompt.new-game').as('newGamePrompt')
+        cy.get('.start-new-game').click()
+        cy.get('@newGamePrompt').should('not.have.class', 'hidden')
+        cy.get('.prompt.new-game')
+          .find('.body')
+          .then(body => 
+            expect(body.text().replace(/\*/gm, '').trim())  // TODO: Find out why there are '*'s
+            .to.equal(expectedNewGamePromptBody))
+      })
 
-    // describe('A confirmation prompt appears on-screen', () => {
-    //   it('upon clicking the \'Start a new game\' button', () => {
-    //     cy.visit('http://localhost/sudoku')
-    //     cy.on('window:confirm', text => {
-    //       console.log(text)
-    //       expect(text).to.equal(expectedNewGamePromptText)
-    //       return false
-    //     })
-    //     cy.get('.start-new-game').click()
-    //   })
+      it('as well as upon pressing the \'N\' keyboard button', () => {
+        cy.visit('http://localhost/sudoku')
+        cy.get('.prompt.new-game').as('newGamePrompt')
+        cy.get('body').trigger('keydown', { key: 'n' })
+        cy.get('@newGamePrompt').should('not.have.class', 'hidden')
+        cy.get('.prompt.new-game')
+          .find('.body')
+          .then(body => 
+            expect(body.text().replace(/\*/gm, '').trim())  // TODO: Find out why there are '*'s
+            .to.equal(expectedNewGamePromptBody))
+      })
+    })
 
-    //   it('as well as upon pressing the \'N\' keyboard button', () => {
-    //     cy.visit('http://localhost/sudoku')
-    //     cy.get('body').trigger('keydown', { key: 'n' })
-    //     cy.on('window:confirm', text => {
-    //       expect(text).to.equal(expectedNewGamePromptText)
-    //       return false
-    //     })
-    //   })
-    // })
+    describe('The confirmation prompts hides', () => {
+      it('upon clicking the \'Yes\' button', () => {
+        cy.visit('http://localhost/sudoku')
+        cy.get('.prompt.new-game').as('newGamePrompt')
+        cy.get('.start-new-game').click()
+        cy.get('.prompt.new-game button.yes').click()
+        cy.get('@newGamePrompt').should('have.class', 'hidden')
+      })
+
+      it('as well as clicking the \'No\' button', () => {
+        cy.visit('http://localhost/sudoku')
+        cy.get('.prompt.new-game').as('newGamePrompt')
+        cy.get('.start-new-game').click()
+        cy.get('.prompt.new-game button.no').click()
+        cy.get('@newGamePrompt').should('have.class', 'hidden')
+      })
+    })
 
     it('The current game continues if user refuses ' +
        'to start a new one', () => {
@@ -63,21 +84,21 @@ describe('Menu operations', () => {
         .each(cell => before.push(cell.text()))
         .then(() => {
           cy.get('.start-new-game').click()
-          cy.on('window:confirm', text => false)
+          cy.get('.prompt.new-game').find('button.no').click()
           cy.get('#grid .subgrid .cell')
             .each(cell => after.push(cell.text()))
             .then(() => expect(arraysEqual(before, after)).to.be.true)
       })
     })
 
-    it('A new game is started if the user consents ' +
-       'to it', () => {
+    it('A new game is started if the user consents to it', () => {
       cy.visit('http://localhost/sudoku')
       const before = [], after = []
       cy.get('#grid .subgrid .cell')
         .each(cell => before.push(cell.text()))
         .then(() => {
           cy.get('.start-new-game').click()
+          cy.get('.prompt.new-game').find('button.yes').click()
           cy.get('#grid .subgrid .cell')
             .each(cell => after.push(cell.text()))
             .then(() => expect(arraysEqual(before, after)).to.be.false)
@@ -123,7 +144,89 @@ describe('Menu operations', () => {
       })
     })
 
-    // TODO: More settings tests to come...
+    describe('Trying to change the game\'s difficulty', () => {
+      const expectedDifficultyChangePromptBody = 'Changing the difficulty level will ' +
+                                                 'start a new game and you\'ll lose your ' +
+                                                 'progress in the current one! Are you ' +
+                                                 'sure you want to do that?'
+
+      it('displays a confirmation prompt with the correct text', () => {
+        cy.visit('http://localhost/sudoku')
+        cy.get('.menu.settings .show-settings').click()
+        cy.get('.menu.settings .control.difficulty').select('Medium')
+        cy.get('.prompt.change-difficulty').should('not.have.class', 'hidden')
+        cy.get('.prompt.change-difficulty .body').then(body => 
+          expect(body.text().replace(/\*/gm, '').trim())  // TODO: Find out why there are '*'s
+          .to.equal(expectedDifficultyChangePromptBody))
+      })
+
+      it('the game\' difficulty remains unchanged upon clicking ' +
+         'the prompt\'s \'No\' button', () => {
+          cy.visit('http://localhost/sudoku')
+          // Collect and assert on the grid's squares
+          const before = [], after = [];
+          cy.get('#grid .subgrid .cell')
+            .each(cell => before.push(cell.text()))
+            .then(() => {
+              cy.get('.menu.settings .show-settings').click()
+              cy.get('.menu.settings .control.difficulty').select('Medium')
+              cy.get('.prompt.change-difficulty').find('button.no').click()
+              cy.get('#grid .subgrid .cell')
+                .each(cell => after.push(cell.text()))
+                .then(() => expect(arraysEqual(before, after)).to.be.true)
+          })
+      })
+
+      it('the game\'s difficulty changes if the user consents to it', () => {
+        cy.visit('http://localhost/sudoku')
+        // Collect and assert on the grid's blank squares
+        const blankBefore = [], allBefore = [], 
+              blankAfter  = [], allAfter  = [];
+        cy.get('#grid .subgrid .cell')
+          .each(cell => { 
+            if (cell.text().trim() === '')
+              blankBefore.push(cell.text()) 
+            allBefore.push(cell.text())
+          })
+          .then(() => {
+            cy.get('.menu.settings .show-settings').click()
+            cy.get('.menu.settings .control.difficulty').select('Medium')
+            cy.get('.prompt.change-difficulty').find('button.yes').click()
+            cy.get('#grid .subgrid .cell')
+              .each(cell => { 
+                if (cell.text().trim() === '')
+                  blankAfter.push(cell.text())
+                allAfter.push(cell.text())
+              })
+              .then(() => {
+                expect(blankBefore.length < blankAfter.length).to.be.true
+                // Collect and assert on all grid squares
+                cy.get('#grid .subgrid .cell')
+                  .each(cell => allAfter.push(cell.text()))
+                  .then(() => expect(arraysEqual(allBefore, allAfter)).to.be.false)
+              })
+        })
+      })
+
+      describe('The active theme changes', () => {
+        it('to dark', () => {
+          cy.visit('http://localhost/sudoku')
+          cy.get('.menu.settings .show-settings').click()
+          cy.get('.menu.settings .control.theme').select('Dark') 
+          cy.get('#game .bg').should('have.class', 'dark')
+          cy.get('#grid').should('have.class', 'dark')
+        })
+
+        it('and light', () => {
+          cy.visit('http://localhost/sudoku')
+          cy.get('.menu.settings .show-settings').click()
+          cy.get('.menu.settings .control.theme').select('Dark') 
+          cy.get('.menu.settings .control.theme').select('Light') 
+          cy.get('#game .bg').should('not.have.class', 'dark')
+          cy.get('#grid').should('not.have.class', 'dark')
+        })
+      })
+    })
   })
 
   describe('Help', () => {

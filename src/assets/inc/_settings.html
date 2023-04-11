@@ -14,8 +14,8 @@
 	<form class="body">
 		<div class="setting">
 			<label>Difficulty: </label>
-			<select class="control" 
-				    @change="askChangeDifficulty($event.srcElement)">
+			<select class="control difficulty" 
+				    @change="askChangeDifficulty()">
 				<option v-for="(option, name) in menus.settings.difficulty.options" 
 					    :value="name"
 					    :selected="name === menus.settings.difficulty.active">
@@ -25,7 +25,7 @@
 		</div>
 		<div class="setting">
 			<label>Theme: </label>
-			<select class="control" v-model="menus.settings.theme.active">
+			<select class="control theme" v-model="menus.settings.theme.active">
 				<option v-for="theme in menus.settings.theme.options" 
 						:value="theme"
 						:selected="theme === menus.settings.theme.active">

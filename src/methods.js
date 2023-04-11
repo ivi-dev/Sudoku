@@ -16,6 +16,7 @@ export default {
 		this.fillRows();       // 1.1 Fill all rows with numbers
 		this.dedupSubgrids();  // 1.2 Remove duplicate numbers from the game's subgrids
 		this.dedupCols();      // 1.3 Remove duplicate numbers from the game's columns
+		this.snapshotGrid();   // 1.4 Store a snapshot of the filled out grid into the DOM
 		// 2. Make holes in the grid for the player to fill 
 		const holeSize = perc(
 			this.menus.settings.difficulty
@@ -25,6 +26,19 @@ export default {
 		);
 		this.punctureGrid(holeSize);
 		this.validateGrid();
+	},
+	/**
+	 * @todo Document this.
+	 */
+	snapshotGrid() {
+		const gridClone = _.map(this.grid, row => 
+			_.map(row, col => col)
+		);
+		const json = document.createElement('SCRIPT');
+		json.setAttribute('type', 'application/json');
+		json.setAttribute('id', 'complete');
+		json.textContent = JSON.stringify(gridClone);
+		document.body.appendChild(json);
 	},
 	/**
 	 * Make 'holes' in the grid so that some numbers appear
@@ -500,19 +514,9 @@ export default {
 	 * difficulty. If they answer with 'Yes', the game's
 	 * difficulty is changed; If they answer with 'No' 
 	 * the game retains its current difficulty setting.
-	 * 
-	 * @param {Element} selector The DOM element used for 
-	 * selecting the game's difficulty level.
 	 */
-	askChangeDifficulty(selector) {
-		if (confirm('Changing the difficulty level will start a new game ' +
-			        'and you\'ll lose your progress in the current one! '  +
-			        'Are you sure you want to do that?')) {
-			this.menus.settings.difficulty.active = selector.value;
-			this.fillGrid();
-		} else {
-			selector.value = this.menus.settings.difficulty.active;
-		}
+	askChangeDifficulty() {
+		this.prompts.difficultyChange = true;
 	},
 	/**
 	 * Open/close the Settings menu. If an explicit visibility
@@ -573,11 +577,7 @@ export default {
 	 * @todo Document this.
 	 */
 	startNewGame() {
-		if (confirm('By starting a new game you\'ll lose your ' +
-			        'progress in the current one. Are you sure ' +
-			        'you want to do that?')) {
-			location.reload();
-		}
+		this.prompts.newGame = true;
 	},
 	/**
 	 * @todo Document this.

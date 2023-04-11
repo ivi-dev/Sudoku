@@ -22,10 +22,48 @@ export default function(this_) {
 			}
 		}
 	});
-	// Start a new game on pressing 'N'
+	// Promp starting a new game on pressing 'N'
 	document.addEventListener('keydown', event => {
 		if (event.key === 'n') {
 			this_.startNewGame();
+		}
+	});
+	// Start a new game on clicking the prompt's 'Yes' button
+	document.querySelector('.prompt.new-game button.yes')
+		    .addEventListener('click', () => {
+		this_.fillGrid();
+    	this_.prompts.newGame = false;
+	});
+    // Continue current game on clicking the prompt's 'No' button
+	document.querySelector('.prompt.new-game button.no')
+		    .addEventListener('click', () => {
+    	this_.prompts.newGame = false;
+	});
+    // Change the game's difficulty on clicking the prompt's 'Yes' button
+	document.querySelector('.prompt.change-difficulty button.yes')
+		    .addEventListener('click', () => {
+    	const selector = document.querySelector(
+    		'.menu.settings .control.difficulty'
+    	);
+    	this_.menus.settings.difficulty.active = selector.value;
+		this_.fillGrid();
+    	this_.prompts.difficultyChange = false;
+	});
+    // Don't change the game's difficulty on clicking the prompt's 'No' button
+	document.querySelector('.prompt.change-difficulty button.no')
+		    .addEventListener('click', () => {
+    	const selector = document.querySelector(
+    		'.menu.settings .control.difficulty'
+    	);
+    	selector.value = this_.menus.settings.difficulty.active;
+    	this_.prompts.difficultyChange = false;
+	});
+    // Close prompts on pressing Escape
+	document.addEventListener('keydown', event => {
+		if (event.key === 'Escape') {
+			for (const prompt in this_.prompts) {
+				this_.prompts[prompt] = false;
+			}
 		}
 	});
 	// Open/close the settings menu on pressing 'S'

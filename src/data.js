@@ -15,6 +15,11 @@ export default function() {
 	   		cols:     { valid: false, results: { } },
 	   	},
 	   	gameComplete: null,
+	   	prompts: {
+	   		newGame:          false,
+	   		difficultyChange: false,
+	   	},
+	   	newGamePromptVisible: false,
 	   	menus: {
 	   		anyVisible: false, // True if at least one menu is open, false otherwise
 	   		settings: {

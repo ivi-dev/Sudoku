@@ -3,6 +3,7 @@
 @import "./_tools.css";
 @import "./_util.css";
 @import "./_note.css";
+@import "./_prompt.css";
 @import "./menus/_new-game.css";
 @import "./menus/_settings.css";
 @import "./menus/_help.css";

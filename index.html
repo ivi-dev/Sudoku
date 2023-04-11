@@ -14,6 +14,7 @@
 <body>
 	<div id="game">
 		<div :class="[{ dark: menus.settings.theme.active === 'Dark' }, 'bg']"></div>
+		<div w3-include-html="./src/assets/inc/_prompt.html" class="prompt-wrap"></div>
 		<div w3-include-html="./src/assets/inc/_grid.html"></div>
 		<div w3-include-html="./src/assets/inc/_note.html" class="note-wrap"></div>
 		<div w3-include-html="./src/assets/inc/_sound.html"></div>

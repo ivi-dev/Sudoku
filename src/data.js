@@ -1,9 +1,22 @@
+/**
+ * A module defining the app's state data as 
+ * per [Vue.js's Options API style specification]{@link https://vuejs.org/guide/introduction.html#api-styles}.
+ * 
+ * @module
+ * @see https://vuejs.org/api/options-state.html#data
+ */
+
+
 import { grid } from './grid.js';
 
 /**
- * The app's data.
+ * Return the app's mutable state definition 
+ * according to the Options API style.
+ * 
+ * @return {Object} The app's mutable state.
+ * @see https://vuejs.org/guide/introduction.html#api-styles
  */
-export default function() {
+function data() {
 	return {
 	  	debug: false,
 	    grid: grid.flat,
@@ -38,3 +51,5 @@ export default function() {
 	   	},
 	}
 }
+
+export default data;

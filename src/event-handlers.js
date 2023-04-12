@@ -1,9 +1,24 @@
 /**
+ * A module providing the app with tha ability
+ * to attach event handlers to DOM elements.
+ * 
+ * @module
+ */
+
+
+/**
  * Attach the game's event handlers to their corresponding
- * elements. 
+ * DOM elements. 
+ * 
+ * @param {object} this_ A reference to the constructed
+ * app object. Required since some attached event handlers
+ * modify the app's state.
+ * 
+ * @see https://vuejs.org/guide/essentials/application.html
+ * @see https://vuejs.org/guide/introduction.html#api-styles
  */
 export default function(this_) {
-	// Set the value of the currently active grid cell on pressing
+	// Place a number in the currently active grid cell on pressing
 	// a digit key on the keyboard
 	document.addEventListener('keypress', event => {
 		const val = Number(event.key);
@@ -22,7 +37,7 @@ export default function(this_) {
 			}
 		}
 	});
-	// Promp starting a new game on pressing 'N'
+	// Promp for confirmation on starting a new game on pressing 'N'
 	document.addEventListener('keydown', event => {
 		if (event.key === 'n') {
 			this_.startNewGame();
@@ -34,7 +49,7 @@ export default function(this_) {
 		this_.fillGrid();
     	this_.prompts.newGame = false;
 	});
-    // Continue current game on clicking the prompt's 'No' button
+    // Continue the current game on clicking the prompt's 'No' button
 	document.querySelector('.prompt.new-game button.no')
 		    .addEventListener('click', () => {
     	this_.prompts.newGame = false;
@@ -49,7 +64,7 @@ export default function(this_) {
 		this_.fillGrid();
     	this_.prompts.difficultyChange = false;
 	});
-    // Don't change the game's difficulty on clicking the prompt's 'No' button
+    // Continue on the current difficulty on clicking the prompt's 'No' button
 	document.querySelector('.prompt.change-difficulty button.no')
 		    .addEventListener('click', () => {
     	const selector = document.querySelector(
@@ -58,7 +73,7 @@ export default function(this_) {
     	selector.value = this_.menus.settings.difficulty.active;
     	this_.prompts.difficultyChange = false;
 	});
-    // Close prompts on pressing Escape
+    // Close all prompts on pressing 'Escape'
 	document.addEventListener('keydown', event => {
 		if (event.key === 'Escape') {
 			for (const prompt in this_.prompts) {
@@ -66,31 +81,32 @@ export default function(this_) {
 			}
 		}
 	});
-	// Open/close the settings menu on pressing 'S'
+	// Toggle the settings menu on pressing 'S'
 	document.addEventListener('keydown', event => {
 		if (event.key === 's') {
 			this_.toggleSettings(!this_.menus.settings.visible);
 		}
 	});
-	// Close the Settings menu on pressing Escape
+	// Close the Settings menu on pressing 'Escape'
 	document.addEventListener('keydown', event => {
 		if (event.key === 'Escape') {
 			this_.toggleSettings(false);
 		}
 	});
-	// Open/close the help menu on pressing 'H'
+	// Toggle the help menu on pressing 'H'
 	document.addEventListener('keydown', event => {
 		if (event.key === 'h') {
 			this_.toggleHelp(!this_.menus.help.visible);
 		}
 	});
-	// Close the Help menu on pressing Escape
+	// Close the Help menu on pressing 'Escape'
 	document.addEventListener('keydown', event => {
 		if (event.key === 'Escape') {
 			this_.toggleHelp(false);
 		}
 	});
 	// Remove the highlight from the currently selected grid cell
+	// on pressing 'Escape'
 	document.addEventListener('keydown', event => {
 		if (event.key === 'Escape') {
 			this_.activeCell = { row: null, col: null };

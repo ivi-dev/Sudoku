@@ -1,14 +1,22 @@
 /**
+ * A module defining the game's number grid-related
+ * utilities.
+ * 
+ * @module
+ */
+
+
+/**
  * A class representing a grid of cells.
  */
 class Grid {
 	/**
-	 * Storage for the grid.
+	 * A storage for this grid's rows.
 	 */
 	#store = [];
 
 	/**
-	 * This grid's subgrids.
+	 * A storage for this grid's subgrids.
 	 */
 	#subgrids = [];
 
@@ -19,19 +27,24 @@ class Grid {
 	 * 
 	 * @param {number} numRows The desired number of rows.
 	 * @param {Subgrid} subgrids The subgrids that make up the grid.
+	 * 
+	 * @see {@link Subgrid}
 	 */
 	constructor(numRows, ...subgrids) {
-		this.#subgrids = Grid.#indexSubgrids(...subgrids);
-		this.#makeGrid(numRows, ...this.#subgrids);
+		this.#subgrids = this.indexSubgrids(...subgrids);
+		this.makeGrid(numRows, ...this.#subgrids);
 	}
 
 	/**
-	 * Index the provided subgrids.
+	 * Assign sequential numerical indices to the provided subgrids
+	 * starting from 0.
 	 * 
+	 * @private
 	 * @param {Subgrid} subgrids One or more subgrids.
-	 * @return {Subgrid[]} An array of indexed subgrids.
+	 * @return {Subgrid[]} An array of the provided subgrids
+	 * with sequential indices assigned to them.
 	 */
-	static #indexSubgrids(...subgrids) {
+	indexSubgrids(...subgrids) {
 		return _.map(subgrids, (subgrid, index) => { 
 			subgrid.index = index; 
 			return subgrid; 
@@ -39,12 +52,15 @@ class Grid {
 	}
 
 	/**
-	 * Assemble the grid.
+	 * Assemble the grid out of the provied subgrids.
+	 * The assembled grid is placed in Grid#store.
 	 * 
+	 * @private
 	 * @param {number} numRows The desired number of rows.
-	 * @param {Subgrid} subgrids The subgrids that make up the grid.
+	 * @param {Subgrid} subgrids The subgrids that should make 
+	 * up the grid.
 	 */
-	#makeGrid(numRows, ...subgrids) {
+	makeGrid(numRows, ...subgrids) {
 		for (let rowIndex = 0; rowIndex < numRows; rowIndex++) {
 			const row = [],
 			subgrids_ = _.filter(subgrids, ({ grid }) => 
@@ -63,7 +79,9 @@ class Grid {
 	/**
 	 * Return this grid's subgrids.
 	 * 
+	 * @method
 	 * @return {Subgrid[]} This grid's subgrids.
+	 * @see Subgrid
 	 */
 	get subgrids() {
 		return this.#subgrids;
@@ -72,48 +90,57 @@ class Grid {
 	/**
 	 * Return this grid's flat structure.
 	 * 
-	 * @return {*[][]} This gird's flat structure represented
-	 * as a two-dimensional array.
+	 * @method
+	 * @return {object[][]} This gird's flat structure represented
+	 * as a two-dimensional array, with the first dimension 
+	 * representing the grid's rows, and the second one, the 
+	 * particular row's columns.
 	 */
 	get flat() {
 		return this.#store;
 	}
 }
 
+
 /**
  * A class representing a portion of a larger grid of cells.
-*/
+ */
 class Subgrid {
 	/**
 	 * Construct a new subgrid.
 	 * 
-	 * @param {GridAxesSpec} axesSpec This subgird's axes spec.
+	 * @param {SubgridPlacementSpec} placementSpec This subgrid's 
+	 * axes specification.
 	 * @param {Bounds} bounds This subgrid's bounds.
-	 * @param {Cell[]} cells This subgrid's cells.
+	 * @param {Cell} cells This subgrid's cells.
+	 * 
+	 * @see SubgridPlacementSpec
+	 * @see Bounds
+	 * @see Cell
 	 */
-	constructor(axesSpec, bounds, ...cells) {
-		this.grid = axesSpec;
+	constructor(placementSpec, bounds, ...cells) {
+		this.grid = placementSpec;
 		this.bounds = bounds;
 		this.cells = cells;
 	}
 }
 
 /**
- * A class representing grid axes (rows and columns) that
- * a grid-inner element (like a subgrid) spans across. E.g.,
- * a 9x9 grid is made out of 9 3x3 subgrids. The
+ * A class representing a subgird's placement specification
+ * in terms the axes (rows and columns) that it spans across. 
+ * E.g., a 9x9 grid is made out of 9 3x3 subgrids. The
  * third subgrid (top right one, counting from left ot right, 
  * top to bottom) would then span across the main grid's 
  * 1st, 2nd and 3rd row and 7th, 8th and 9th columns.
  */
-class GridAxesSpec {
+class SubgridPlacementSpec {
 	/**
 	 * Construct a new spec object with the provided
 	 * parameters.
 	 * 
-	 * @param {number[]} rows The grid rows that the subgrid
+	 * @param {number[]} rows The grid rows that a subgrid
 	 * spans across.
-	 * @param {number[]} cols The grid columns that the subgrid
+	 * @param {number[]} cols The grid columns that a subgrid
 	 * spans across.
 	 */
 	constructor(rows, cols) {
@@ -125,7 +152,11 @@ class GridAxesSpec {
 /**
  * A class representing the bounds of a subgrid expressed 
  * as the grid row and column that its top left edge is 
- * located at in the containing grid. 
+ * located at in the containing grid. E.g., a 9x9 grid is 
+ * made out of 9 3x3 subgrids. The second subgrid (top center)
+ * would then have a bounds of 0:3, meaning its top left edge
+ * is sitting on the first row and the 4th column of its 
+ * containing grid.
  */
 class SubgridBounds {
 	/**
@@ -142,12 +173,11 @@ class SubgridBounds {
 }
 
 /**
- * A class representing a single cell of a theoretical 
- * 2-dimensional grid of cells.
+ * A class representing a grid's cell.
  */
 class Cell {
 	/**
-	 * Construct a new cell.
+	 * Construct a new grid cell.
 	 * 
 	 * @param {number} row This cell's grid row.
 	 * @param {number} col This cell's grid column.
@@ -162,66 +192,90 @@ class Cell {
 }
 
 /**
- * The game's grid's subgrids.
+ * The game's grid's 1st subgrid.
  */
 const subgrid1 = new Subgrid(
-	new GridAxesSpec([ 0, 1, 2 ], [ 0, 1, 2 ]), 
+	new SubgridPlacementSpec([ 0, 1, 2 ], [ 0, 1, 2 ]), 
 	new SubgridBounds(0, 0),
 	new Cell(0, 0), new Cell(0, 1), new Cell(0, 2),
 	new Cell(1, 0), new Cell(1, 1), new Cell(1, 2),
 	new Cell(2, 0), new Cell(2, 1), new Cell(2, 2)
 ),
+/**
+ * The game's grid's 2nd subgrid.
+ */
 subgrid2 = new Subgrid(
-	new GridAxesSpec([ 0, 1, 2 ], [ 3, 4, 5 ]), 
+	new SubgridPlacementSpec([ 0, 1, 2 ], [ 3, 4, 5 ]), 
 	new SubgridBounds(0, 3),
 	new Cell(0, 3), new Cell(0, 4), new Cell(0, 5),
 	new Cell(1, 3), new Cell(1, 4), new Cell(1, 5),
 	new Cell(2, 3), new Cell(2, 4), new Cell(2, 5)
 ),
+/**
+ * The game's grid's 3rd subgrid.
+ */
 subgrid3 = new Subgrid(
-	new GridAxesSpec([ 0, 1, 2 ], [ 6, 7, 8 ]), 
+	new SubgridPlacementSpec([ 0, 1, 2 ], [ 6, 7, 8 ]), 
 	new SubgridBounds(0, 6),
 	new Cell(0, 6), new Cell(0, 7), new Cell(0, 8),
 	new Cell(1, 6), new Cell(1, 7), new Cell(1, 8),
 	new Cell(2, 6), new Cell(2, 7), new Cell(2, 8)
 ),
+/**
+ * The game's grid's 4th subgrid.
+ */
 subgrid4 = new Subgrid(
-	new GridAxesSpec([ 3, 4, 5 ], [ 0, 1, 2 ]), 
+	new SubgridPlacementSpec([ 3, 4, 5 ], [ 0, 1, 2 ]), 
 	new SubgridBounds(3, 0),
 	new Cell(3, 0), new Cell(3, 1), new Cell(3, 2),
 	new Cell(4, 0), new Cell(4, 1), new Cell(4, 2),
 	new Cell(5, 0), new Cell(5, 1), new Cell(5, 2)
 ),
+/**
+ * The game's grid's 5th subgrid.
+ */
 subgrid5 = new Subgrid(
-	new GridAxesSpec([ 3, 4, 5 ], [ 3, 4, 5 ]), 
+	new SubgridPlacementSpec([ 3, 4, 5 ], [ 3, 4, 5 ]), 
 	new SubgridBounds(3, 3),
 	new Cell(3, 3), new Cell(3, 4), new Cell(3, 5),
 	new Cell(4, 3), new Cell(4, 4), new Cell(4, 5),
 	new Cell(5, 3), new Cell(5, 4), new Cell(5, 5)
 ),
+/**
+ * The game's grid's 6th subgrid.
+ */
 subgrid6 = new Subgrid(
-	new GridAxesSpec([ 3, 4, 5 ], [ 6, 7, 8 ]), 
+	new SubgridPlacementSpec([ 3, 4, 5 ], [ 6, 7, 8 ]), 
 	new SubgridBounds(3, 6),
 	new Cell(3, 6), new Cell(3, 7), new Cell(3, 8),
 	new Cell(4, 6), new Cell(4, 7), new Cell(4, 8),
 	new Cell(5, 6), new Cell(5, 7), new Cell(5, 8)
 ),
+/**
+ * The game's grid's 7th subgrid.
+ */
 subgrid7 = new Subgrid(
-	new GridAxesSpec([ 6, 7, 8 ], [ 0, 1, 2 ]), 
+	new SubgridPlacementSpec([ 6, 7, 8 ], [ 0, 1, 2 ]), 
 	new SubgridBounds(6, 0),
 	new Cell(6, 0), new Cell(6, 1), new Cell(6, 2),
 	new Cell(7, 0), new Cell(7, 1), new Cell(7, 2),
 	new Cell(8, 0), new Cell(8, 1), new Cell(8, 2)
 ),
+/**
+ * The game's grid's 8th subgrid.
+ */
 subgrid8 = new Subgrid(
-	new GridAxesSpec([ 6, 7, 8 ], [ 3, 4, 5 ]), 
+	new SubgridPlacementSpec([ 6, 7, 8 ], [ 3, 4, 5 ]), 
 	new SubgridBounds(6, 3),
 	new Cell(6, 3), new Cell(6, 4), new Cell(6, 5),
 	new Cell(7, 3), new Cell(7, 4), new Cell(7, 5),
 	new Cell(8, 3), new Cell(8, 4), new Cell(8, 5)
 ),
+/**
+ * The game's grid's 9th subgrid.
+ */
 subgrid9 = new Subgrid(
-	new GridAxesSpec([ 6, 7, 8 ], [ 6, 7, 8 ]), 
+	new SubgridPlacementSpec([ 6, 7, 8 ], [ 6, 7, 8 ]), 
 	new SubgridBounds(6, 6),
 	new Cell(6, 6), new Cell(6, 7), new Cell(6, 8),
 	new Cell(7, 6), new Cell(7, 7), new Cell(7, 8),

@@ -1,15 +1,27 @@
+/**
+ * A module defining the app's methods as 
+ * per [Vue.js's Options API style specification]{@link https://vuejs.org/guide/introduction.html#api-styles}.
+ * 
+ * @module
+ * @see https://vuejs.org/api/options-state.html#methods
+ */
+
+
 import { perc, indices } from './util.js';
 
 /**
  * The app's methods.
+ * 
+ * @see https://vuejs.org/api/options-state.html#methods
  */
 export default {
 	/**
 	 * Fill the game's grid with numbers and perform
-	 * the necessary corrections so that the grid conforms 
-	 * to Sudoku's rules for correctness - all of the digits
-	 * from 1 to 9 inclusive have to appear exactly once in 
-	 * all of the grid's rows, columns and subgrids.
+	 * the necessary corrections, so that the resulting grid 
+	 * conforms to the Sudoku's rules for correctness - all 
+	 * of the digits from 1 to 9 inclusive have to appear 
+	 * exactly once in all of the grid's rows, columns and 
+	 * subgrids.
 	 */
 	fillGrid() {
 		// 1. Fill the grid with numbers
@@ -17,6 +29,7 @@ export default {
 		this.dedupSubgrids();  // 1.2 Remove duplicate numbers from the game's subgrids
 		this.dedupCols();      // 1.3 Remove duplicate numbers from the game's columns
 		this.snapshotGrid();   // 1.4 Store a snapshot of the filled out grid into the DOM
+		                       // (aides E2E testing).
 		// 2. Make holes in the grid for the player to fill 
 		const holeSize = perc(
 			this.menus.settings.difficulty
@@ -28,7 +41,9 @@ export default {
 		this.validateGrid();
 	},
 	/**
-	 * @todo Document this.
+	 * Create a snapshot of a correctly filled grid and 
+	 * store it in the DOM as a <script type="application/json"> 
+	 * element.
 	 */
 	snapshotGrid() {
 		const gridClone = _.map(this.grid, row => 
@@ -45,8 +60,8 @@ export default {
 	 * missing to the player.
 	 * 
 	 * @param {number} holeSize The desired number of
-	 * columns to hide on each grid row. E.g. 3 will hide
-	 * 3 random columns on each grid row.
+	 * cells to hide on each grid row. E.g. 3 will hide
+	 * 3 random cells on each grid row.
 	 */
 	punctureGrid(holeSize) {
 		_.each(this.grid, (row, rowIndex) => {
@@ -95,7 +110,7 @@ export default {
 	 * 
 	 * @param {number} row The subgrid cell's row.
 	 * @param {number} col The subgrid cell's column.
-	 * @param {number} number The number to put in the cells.
+	 * @param {number} number The number to put in the cell.
 	 */
 	setSubgridCell(row, col, number) {
 		const subgrid = _.find(this.subgrids, ({ grid }) => 
@@ -215,8 +230,12 @@ export default {
 	 * to get the current state of.
 	 * @return {object} An object representing the current state
 	 * of the subgrid with the provided index. E.g.:
+	 * @example
+	 * getSubgridState(1)
 	 * 
-	 * {
+	 * // returns a value of the sort:
+	 *  
+	 *  {
 	 *     numbers:    [
 	 * 	                  { row: r0, col: c0, value: [Number] },
 	 * 	                  { row: r1, col: c1, value: [Number] },
@@ -229,16 +248,14 @@ export default {
 	 * 		                 { row: [Number], col: [Number], value: [Number] },
 	 * 		                 { row: [Number], col: [Number], value: [Number] },
 	 * 		                 { row: [Number], col: [Number], value: [Number] },
-	 *                       ...
 	 * 					  ],
 	 * 					  1: Array [  // A number appearing two times
 	 * 			             { row: [Number], col: [Number], value: [Number] },
 	 * 		                 { row: [Number], col: [Number], value: [Number] },
-	 *                       ...
 	 * 	                  ],
 	 *                    ...
-	 * 				   ]
-	 * }
+	 * 				 ]
+	 *  }
 	 */
 	getSubgridState(index) {
 		const numbers    = _.find(this.subgrids, ({ index: index_ }) => 
@@ -257,30 +274,31 @@ export default {
 	 * @param {number} index The index (0-based) of the grid column
 	 * to get the current state of.
 	 * @return {object} An object representing the current state
-	 * of the subgrid with the provided index. E.g.:
+	 * of the subgrid with the provided index.
+	 * @example
+	 * getColState(1)
 	 * 
+	 * // returns a value of the sort:
 	 * {
-	 *     numbers:    [
+	 *    numbers:    [
 	 * 	                  { row: r0, col: c0, value: [Number] },
 	 * 	                  { row: r1, col: c1, value: [Number] },
 	 * 	                  { row: r2, col: c2, value: [Number] },
 	 * 	                  ...
-	 *                 ],
-	 *     missing:    [ [Number], [Number], [Number], ... ],
-	 *     duplicates: [
+	 *                ],
+	 *    missing:    [ [Number], [Number], [Number], ... ],
+	 *    duplicates: [
 	 * 					  0: Array [ // A number appearing three times
 	 * 		                 { row: [Number], col: [Number], value: [Number] },
 	 * 		                 { row: [Number], col: [Number], value: [Number] },
 	 * 		                 { row: [Number], col: [Number], value: [Number] },
-	 *                       ...
 	 * 					  ],
 	 * 					  1: Array [  // A number appearing two times
 	 * 			             { row: [Number], col: [Number], value: [Number] },
 	 * 		                 { row: [Number], col: [Number], value: [Number] },
-	 *                       ...
 	 * 	                  ],
-	 *                    ...
-	 * 				   ]
+	 *                   ...
+	 * 			      ]
 	 * }
 	 */
 	getColState(index) {
@@ -302,17 +320,21 @@ export default {
 	 * 
 	 * @param {number} index The index (0-based) of the subgrid to 
 	 * get the next horizontal neighbors of.
-	 * @return {object[]} An array of the neighboring subgrids of the 
-	 * one at the provided index, containing objects with this shape:
+	 * @return {object[]} An array of objects representing the neighboring 
+	 * subgrids of the one at the provided index.
 	 * 
-	 * [
+	 * @example
+	 * getNextHSubgrids(2)
+	 * 
+	 *  returns a value of the sort:
+	 *  [
 	 * 	   { 
 	 * 	       index:    [Number],  // The index of this neighbor (0-based)
-	 *         rowStart: [Number],  // This neighbor's starting row (0-based)
+	 *           rowStart: [Number],  // This neighbor's starting row (0-based)
 	 * 	       colStart: [Number]   // This neighbor's starting column (0-based)
 	 * 	   },
 	 *     ...
-	 * ]
+	 *  ]
 	 */
 	getNextHSubgrids(index) {
 		const subgrid = _.find(this.subgrids, ({ index: index_ }) => index_ === index);
@@ -365,20 +387,24 @@ export default {
 	 * 
 	 * @param {number} index The index of the subgrid to return the contents of.
 	 * @return {object[]} An object representing the numbers contained in the
-	 * subgrid at the provided index. Ex.:
+	 * subgrid at the provided index.
+	 * @example
+	 * getSubgridSiblings(1)
 	 * 
-	 * [
+	 *  return a value of the sort:
+	 *  [
 	 * 	   { row: [Number], col: [Number], value: [Number] },
 	 * 	   { row: [Number], col: [Number], value: [Number] },
 	 * 	   { row: [Number], col: [Number], value: [Number] },
-	 *     ...
-	 * ]
+	 *       ...
+	 *  ]
 	 */
 	getSubgridSiblings(index) {
 		return _.find(this.subgrids, ({ index: index_ }) => index_ === index).cells;
 	},
 	/**
-	 * Check the validity of all subgrids and record the result.
+	 * Check the validity of all subgrids and update the app's state
+	 * to reflect the result.
 	 * 
 	 * A subgrid is considered valid if it complies with the rule
 	 * of Sudoku stating that a subgrid must contain exactly one instance
@@ -388,7 +414,7 @@ export default {
 	 * otherwise.
 	 */
 	validateSubgrids() {
-		// 1. Check to see if a number is duplicated a any of the game's subgrids,
+		// 1. Check to see if a number is duplicated in any of the game's subgrids,
 		//    recording the results along the way.
 		_.each(this.subgrids, ({ cells }, subgridIndex) => {
 			const valid = _.difference(this.numbers, _.map(cells, 'value')).length === 0;
@@ -401,7 +427,8 @@ export default {
 		return this.validationResults.subgrids.valid;
 	},
 	/**
-	 * Check the validity of all grid rows and record the result.
+	 * Check the validity of all grid rows and update the app's state
+	 * to reflect the result.
 	 * 
 	 * A grid row is considered valid if it complies with the rule
 	 * of Sudoku stating that a grid row must contain exactly one instance
@@ -424,7 +451,8 @@ export default {
 		return this.validationResults.rows.valid;
 	},
 	/**
-	 * Check the validity of all grid columns and record the result.
+	 * Check the validity of all grid columns and update the app's state
+	 * to reflect the result.
 	 * 
 	 * A grid column is considered valid if it complies with the rule
 	 * of Sudoku stating that a grid column must contain exactly one instance
@@ -453,7 +481,8 @@ export default {
 	/**
 	 * Verify the validity of the game's grid.
 	 * 
-	 * @return {boolean} True if the entire grid complies
+	 * @return {boolean} True if the entire grid (all
+	 * of its rows, columns and subgrids) complies
 	 * with the rules of Sudoku, false otherwise.
 	 * 
 	 * The rules of Sudok state that every subgrid, row and column
@@ -467,7 +496,10 @@ export default {
 	  	return _.every([subgridsValid, rowsValid, colsValid]);
 	},
 	/**
-	 * @todo Document this.
+	 * Determine whether the game's grid contians an empty cell.
+	 * 
+	 * @return {boolean} True if the game's grid contains at least
+	 * one empty cell, false otherwise.
 	 */
 	hasEmptyCells() {
 		let empty = 0;
@@ -574,13 +606,14 @@ export default {
 		});
 	},
 	/**
-	 * @todo Document this.
+	 * Prompt the player for confirmation on starting
+	 * a new game.
 	 */
 	startNewGame() {
 		this.prompts.newGame = true;
 	},
 	/**
-	 * @todo Document this.
+	 * Play a sound presented by an <audio> DOM element. 
 	 */
 	playSound(sound) {
 		document.querySelector(`audio${sound}`).play();

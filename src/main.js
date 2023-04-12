@@ -7,9 +7,6 @@ import methods from './methods.js';
  * Start the game up for the player.
  */
 export function initGame() {
-	Vue.createApp({ 
-		...hooks, 
-		data, 
-		methods
-	}).mount('#game');
+	Vue.createApp({...hooks, data, methods})
+	   .mount('#game');
 }

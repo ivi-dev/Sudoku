@@ -4,12 +4,11 @@
   "description": "A browser-based Sudoku puzzle game",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "jsdoc -r -d docs src",
     "cypress:open": "cypress open",
-    "cypress:run:chrome": "cypress run -b chrome --headed",
-    "cypress:run:firefox": "cypress run -b firefox --headed",
-    "cypress:run:edge": "cypress run -b edge --headed"
+    "cypress:run:chrome": "cypress run -b chrome",
+    "cypress:run:firefox": "cypress run -b firefox",
+    "cypress:run:edge": "cypress run -b edge"
   },
   "keywords": [
     "sudoku",

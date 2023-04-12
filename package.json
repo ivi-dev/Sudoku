@@ -5,8 +5,11 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "jsdoc -r -d docs src",
     "cypress:open": "cypress open",
-    "docs": "jsdoc -r -d docs src"
+    "cypress:run:chrome": "cypress run -b chrome --headed",
+    "cypress:run:firefox": "cypress run -b firefox --headed",
+    "cypress:run:edge": "cypress run -b edge --headed"
   },
   "keywords": [
     "sudoku",

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: event-handlers.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: event-handlers.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * A module providing the app with tha ability
+ * to attach event handlers to DOM elements.
+ * 
+ * @module
+ */
+
+
+/**
+ * Attach the game's event handlers to their corresponding
+ * DOM elements. 
+ * 
+ * @param {object} this_ A reference to the constructed
+ * app object. Required since some attached event handlers
+ * modify the app's state.
+ * 
+ * @see https://vuejs.org/guide/essentials/application.html
+ * @see https://vuejs.org/guide/introduction.html#api-styles
+ */
+export default function(this_) {
+	// Place a number in the currently active grid cell on pressing
+	// a digit key on the keyboard
+	document.addEventListener('keypress', event => {
+		const val = Number(event.key);
+		if (_.includes(this_.numbers, val) &amp;&amp; this_.activeCell) {
+			this_.setCell(this_.activeCell, val);
+			const gameComplete  = this_.validateGrid(),
+				  hasEmptyCells = this_.hasEmptyCells();
+			if (!hasEmptyCells) {
+				if (gameComplete) {
+					this_.gameComplete = true;
+					this_.playSound('#game-success');
+				} else {
+					this_.gameComplete = false;
+					this_.playSound('#game-error');
+				}
+			}
+		}
+	});
+	// Promp for confirmation on starting a new game on pressing 'N'
+	document.addEventListener('keydown', event => {
+		if (event.key === 'n') {
+			this_.startNewGame();
+		}
+	});
+	// Start a new game on clicking the prompt's 'Yes' button
+	document.querySelector('.prompt.new-game button.yes')
+		    .addEventListener('click', () => {
+		this_.fillGrid();
+    	this_.prompts.newGame = false;
+	});
+    // Continue the current game on clicking the prompt's 'No' button
+	document.querySelector('.prompt.new-game button.no')
+		    .addEventListener('click', () => {
+    	this_.prompts.newGame = false;
+	});
+    // Change the game's difficulty on clicking the prompt's 'Yes' button
+	document.querySelector('.prompt.change-difficulty button.yes')
+		    .addEventListener('click', () => {
+    	const selector = document.querySelector(
+    		'.menu.settings .control.difficulty'
+    	);
+    	this_.menus.settings.difficulty.active = selector.value;
+		this_.fillGrid();
+    	this_.prompts.difficultyChange = false;
+	});
+    // Continue on the current difficulty on clicking the prompt's 'No' button
+	document.querySelector('.prompt.change-difficulty button.no')
+		    .addEventListener('click', () => {
+    	const selector = document.querySelector(
+    		'.menu.settings .control.difficulty'
+    	);
+    	selector.value = this_.menus.settings.difficulty.active;
+    	this_.prompts.difficultyChange = false;
+	});
+    // Close all prompts on pressing 'Escape'
+	document.addEventListener('keydown', event => {
+		if (event.key === 'Escape') {
+			for (const prompt in this_.prompts) {
+				this_.prompts[prompt] = false;
+			}
+		}
+	});
+	// Toggle the settings menu on pressing 'S'
+	document.addEventListener('keydown', event => {
+		if (event.key === 's') {
+			this_.toggleSettings(!this_.menus.settings.visible);
+		}
+	});
+	// Close the Settings menu on pressing 'Escape'
+	document.addEventListener('keydown', event => {
+		if (event.key === 'Escape') {
+			this_.toggleSettings(false);
+		}
+	});
+	// Toggle the help menu on pressing 'H'
+	document.addEventListener('keydown', event => {
+		if (event.key === 'h') {
+			this_.toggleHelp(!this_.menus.help.visible);
+		}
+	});
+	// Close the Help menu on pressing 'Escape'
+	document.addEventListener('keydown', event => {
+		if (event.key === 'Escape') {
+			this_.toggleHelp(false);
+		}
+	});
+	// Remove the highlight from the currently selected grid cell
+	// on pressing 'Escape'
+	document.addEventListener('keydown', event => {
+		if (event.key === 'Escape') {
+			this_.activeCell = { row: null, col: null };
+		}
+	});
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-data.html">data</a></li><li><a href="module-event-handlers.html">event-handlers</a></li><li><a href="module-grid.html">grid</a></li><li><a href="module-hooks.html">hooks</a></li><li><a href="module-main.html">main</a></li><li><a href="module-methods.html">methods</a></li><li><a href="module-util.html">util</a></li></ul><h3>Classes</h3><ul><li><a href="-_.html">_</a></li><li><a href="module-grid-Cell.html">Cell</a></li><li><a href="module-grid-Grid.html">Grid</a></li><li><a href="module-grid-Subgrid.html">Subgrid</a></li><li><a href="module-grid-SubgridBounds.html">SubgridBounds</a></li><li><a href="module-grid-SubgridPlacementSpec.html">SubgridPlacementSpec</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 12 2023 14:58:15 GMT+0300 (Източноевропейско лятно часово време)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

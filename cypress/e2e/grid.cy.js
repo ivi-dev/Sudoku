@@ -2,7 +2,7 @@ describe('Grid operations', () => {
   it('Clicking on a grid cell highlights it', () => {
     cy.visit('http://localhost/sudoku')
     cy.get('#grid .subgrid:first-of-type .cell:first-of-type')
-      .click()
+      .click({ force: true })
       .should('have.class', 'active')
   })
 
@@ -11,7 +11,7 @@ describe('Grid operations', () => {
     cy.visit('http://localhost/sudoku')
     cy.get('#grid .subgrid:first-of-type .cell').each(cell => { 
       if (cell.text() === '') {
-        cy.wrap(cell).as('cell').click()
+        cy.wrap(cell).as('cell').click({ force: true })
         cy.get('body').trigger('keypress', { key: '1' })
         cy.get('@cell').should('have.text', '1')
         return false
@@ -24,7 +24,7 @@ describe('Grid operations', () => {
     cy.visit('http://localhost/sudoku')
     cy.get('#grid .subgrid:first-of-type .cell').each(cell => { 
       if (cell.text() === '') {
-        cy.wrap(cell).as('cell').click()
+        cy.wrap(cell).as('cell').click({ force: true })
         cy.get('body').trigger('keypress', { key: 'a' })
         cy.get('@cell').should('have.text', '')
         return false
@@ -34,7 +34,9 @@ describe('Grid operations', () => {
 
   it('Pressing \'Esc\' unhighlights a previously highlighted grid cell', () => {
     cy.visit('http://localhost/sudoku')
-    cy.get('#grid .subgrid:first-of-type .cell:first-of-type').as('cell').click()
+    cy.get('#grid .subgrid:first-of-type .cell:first-of-type')
+      .as('cell')
+      .click({ force: true })
     cy.get('body').trigger('keydown', { key: 'Escape' })
     cy.get('@cell').should('not.have.class', 'active')
   })
@@ -106,8 +108,8 @@ describe('Grid operations', () => {
             const val = solutionMap[subgr_i][cell_i]
             if (cell.text().trim() === '')
               cy.wrap(cell)
-                .click()
-                .trigger('keypress', { key: solution[val.r][val.c].toString() })
+                .click({ force: true })
+                .trigger('keypress', { key: solution[val.r][val.c].toString(), force: true })
           })
         })
         cy.get('.note.success').then(note => 
@@ -120,7 +122,9 @@ describe('Grid operations', () => {
       cy.visit('http://localhost/sudoku')
       cy.get('#grid .subgrid .cell').each(cell => {
         if (cell.text().trim() === '')
-          cy.wrap(cell).click().trigger('keypress', { key: '1' })
+          cy.wrap(cell)
+            .click({ force: true })
+            .trigger('keypress', { key: '1', force: true })
       })
       cy.get('.note.error').then(note => 
           expect(note.text().replace(/\*/gm, '').replace(/\s{2,}/gm, ' ').trim())  // TODO: Find out why there are '*'s

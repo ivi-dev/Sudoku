@@ -1,6 +1,9 @@
 name: 'Prod Deploy'
 run-name: 'Deploy to production'
-on: push
+on: 
+  push:
+    branches:
+      - '*'
 jobs:
   orientation:
     name: 'Orientation'

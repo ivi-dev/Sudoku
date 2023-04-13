@@ -1,0 +1,11 @@
+name: 'Prod Deploy'
+run-name: 'Deploy to production'
+on:
+  push
+jobs:
+  orientation:
+    name: 'Orientation'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Saying Hi'
+        run: echo Hi

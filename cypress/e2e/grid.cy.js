@@ -1,6 +1,6 @@
 describe('Grid operations', () => {
   it('Clicking on a grid cell highlights it', () => {
-    cy.visit('http://localhost/sudoku')
+    cy.visit('http://localhost:8080')
     cy.get('#grid .subgrid:first-of-type .cell:first-of-type')
       .click({ force: true })
       .should('have.class', 'active')
@@ -8,7 +8,7 @@ describe('Grid operations', () => {
 
   it('Entering a digit into an empty grid cell chenges the cell\'s ' +
      'content', () => {
-    cy.visit('http://localhost/sudoku')
+    cy.visit('http://localhost:8080')
     cy.get('#grid .subgrid:first-of-type .cell').each(cell => { 
       if (cell.text() === '') {
         cy.wrap(cell).as('cell').click({ force: true })
@@ -21,7 +21,7 @@ describe('Grid operations', () => {
 
   it('Entering a non-digit into an empty grid cell does not change the ' +
      'cell\'s content', () => {
-    cy.visit('http://localhost/sudoku')
+    cy.visit('http://localhost:8080')
     cy.get('#grid .subgrid:first-of-type .cell').each(cell => { 
       if (cell.text() === '') {
         cy.wrap(cell).as('cell').click({ force: true })
@@ -33,7 +33,7 @@ describe('Grid operations', () => {
   })
 
   it('Pressing \'Esc\' unhighlights a previously highlighted grid cell', () => {
-    cy.visit('http://localhost/sudoku')
+    cy.visit('http://localhost:8080')
     cy.get('#grid .subgrid:first-of-type .cell:first-of-type')
       .as('cell')
       .click({ force: true })
@@ -51,7 +51,7 @@ describe('Grid operations', () => {
                                         "to complete the game."
 
     it('A notification is displayed if the game is completed successfully', () => {
-      cy.visit('http://localhost/sudoku')
+      cy.visit('http://localhost:8080')
       cy.get('script#complete').then(grid => {
         const solution = JSON.parse(grid.text());
         const solutionMap = { 
@@ -119,7 +119,7 @@ describe('Grid operations', () => {
     })
 
     it('A notification is displayed if the game is not completed successfully', () => {
-      cy.visit('http://localhost/sudoku')
+      cy.visit('http://localhost:8080')
       cy.get('#grid .subgrid .cell').each(cell => {
         if (cell.text().trim() === '')
           cy.wrap(cell)

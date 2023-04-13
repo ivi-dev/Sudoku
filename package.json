@@ -4,6 +4,7 @@
   "description": "A browser-based Sudoku puzzle game",
   "main": "main.js",
   "scripts": {
+    "serve": "http-server -p 8080",
     "docs": "jsdoc -r -d docs src",
     "cypress:open": "cypress open",
     "cypress:run:chrome": "cypress run -b chrome",
@@ -20,6 +21,7 @@
   "license": "ISC",
   "devDependencies": {
     "cypress": "^12.9.0",
+    "http-server": "^14.1.1",
     "jsdoc": "^4.0.2"
   }
 }

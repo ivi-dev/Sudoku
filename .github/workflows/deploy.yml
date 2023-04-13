@@ -5,9 +5,15 @@ on:
     branches:
       - '*'
 jobs:
-  orientation:
-    name: 'Orientation'
+  test:
+    name: 'Test'
     runs-on: ubuntu-latest
     steps:
-      - name: 'Saying Hi'
-        run: echo Hi
+      - name: 'Running automated tests'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm ci
+      - run: npm cypress:run:chrome

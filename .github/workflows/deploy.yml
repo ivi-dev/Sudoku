@@ -28,3 +28,28 @@ jobs:
           start: npm run serve
           wait-on: 'http://localhost:8080'
           command: npm run cypress:run:${{ matrix.browser }}
+#   deploy:
+#       name: 'Deploy to remote server'
+#       runs-on: ubuntu
+#       steps:
+#         - name: 'Check out source code'
+#           uses: actions/checkout@v3
+#           with: 
+#             ref: master
+#         - name: 'Transfer files to prod server'
+#           uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+#           with: 
+#             server:     ${{ secrets.prod_ftp_host }}
+#             username:   ${{ secrets.prod_ftp_user }}
+#             password:   ${{ secrets.prod_ftp_pass }}
+#             server-dir: ${{ secrets.prod_ftp_dest }}
+#             exclude: |
+#               **/.git*
+#               **/.git*/**
+#               **/node_modules/**
+#               cypress/**
+#               docs/**
+#               cypress.config.js
+#               package-lock.json
+#               package.json
+#             dry-run: true

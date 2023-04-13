@@ -8,6 +8,9 @@ jobs:
   test:
     name: 'Test'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: ['chrome', 'firefox', 'edge']
     steps:
       - name: 'Check out source code'
         uses: actions/checkout@v3
@@ -22,4 +25,4 @@ jobs:
           install-command: npm ci
           start: npm run serve
           wait-on: 'http://localhost:8080'
-          command: npm run cypress:run:chrome
+          command: npm run cypress:run:${{ matrix.browser }}

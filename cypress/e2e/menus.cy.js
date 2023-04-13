@@ -34,7 +34,7 @@ describe('Menu operations', () => {
 
     describe('A confirmation prompt with the correct text appears on-screen', () => {
       it('upon clicking the \'Start a new game\' button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.prompt.new-game').as('newGamePrompt')
         cy.get('.start-new-game').click()
         cy.get('@newGamePrompt').should('not.have.class', 'hidden')
@@ -46,7 +46,7 @@ describe('Menu operations', () => {
       })
 
       it('as well as upon pressing the \'N\' keyboard button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.prompt.new-game').as('newGamePrompt')
         cy.get('body').trigger('keydown', { key: 'n' })
         cy.get('@newGamePrompt').should('not.have.class', 'hidden')
@@ -60,7 +60,7 @@ describe('Menu operations', () => {
 
     describe('The confirmation prompts hides', () => {
       it('upon clicking the \'Yes\' button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.prompt.new-game').as('newGamePrompt')
         cy.get('.start-new-game').click()
         cy.get('.prompt.new-game button.yes').click()
@@ -68,7 +68,7 @@ describe('Menu operations', () => {
       })
 
       it('as well as clicking the \'No\' button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.prompt.new-game').as('newGamePrompt')
         cy.get('.start-new-game').click()
         cy.get('.prompt.new-game button.no').click()
@@ -78,7 +78,7 @@ describe('Menu operations', () => {
 
     it('The current game continues if user refuses ' +
        'to start a new one', () => {
-      cy.visit('http://localhost/sudoku')
+      cy.visit('http://localhost:8080')
       const before = [], after = []
       cy.get('#grid .subgrid .cell')
         .each(cell => before.push(cell.text()))
@@ -92,7 +92,7 @@ describe('Menu operations', () => {
     })
 
     it('A new game is started if the user consents to it', () => {
-      cy.visit('http://localhost/sudoku')
+      cy.visit('http://localhost:8080')
       const before = [], after = []
       cy.get('#grid .subgrid .cell')
         .each(cell => before.push(cell.text()))
@@ -109,13 +109,13 @@ describe('Menu operations', () => {
   describe('Settings', () => {
     describe('The settings menu opens', () => {
       it('upon clicking the \'Settings\' button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.settings .show-settings').click()
         cy.get('.menu.settings').should('not.have.class', 'hidden-fix-left')
       })
 
       it('as well as pressing the \'S\' keyboard button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.settings .show-settings').trigger('keydown', { key: 's' })
         cy.get('.menu.settings').should('not.have.class', 'hidden-fix-left')
       })
@@ -123,21 +123,21 @@ describe('Menu operations', () => {
 
     describe('The settings menu closes', () => {
       it('upon clicking its \'x\' button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.settings .show-settings').click()
         cy.get('.menu.settings header button.close').click()
         cy.get('.menu.settings').should('have.class', 'hidden-fix-left')
       })
 
       it('as well as upon pressing the \'S\' keyboard button again', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.settings .show-settings').click()
         cy.get('body').trigger('keydown', { key: 's' })
         cy.get('.menu.settings').should('have.class', 'hidden-fix-left')
       })
 
       it('as well as upon pressing the \'Esc\' keyboard button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.settings .show-settings').click()
         cy.get('body').trigger('keydown', { key: 'Escape' })
         cy.get('.menu.settings').should('have.class', 'hidden-fix-left')
@@ -151,7 +151,7 @@ describe('Menu operations', () => {
                                                  'sure you want to do that?'
 
       it('displays a confirmation prompt with the correct text', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.settings .show-settings').click()
         cy.get('.menu.settings .control.difficulty').select('Medium')
         cy.get('.prompt.change-difficulty').should('not.have.class', 'hidden')
@@ -162,7 +162,7 @@ describe('Menu operations', () => {
 
       it('the game\' difficulty remains unchanged upon clicking ' +
          'the prompt\'s \'No\' button', () => {
-          cy.visit('http://localhost/sudoku')
+          cy.visit('http://localhost:8080')
           // Collect and assert on the grid's squares
           const before = [], after = [];
           cy.get('#grid .subgrid .cell')
@@ -178,7 +178,7 @@ describe('Menu operations', () => {
       })
 
       it('the game\'s difficulty changes if the user consents to it', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         // Collect and assert on the grid's blank squares
         const blankBefore = [], allBefore = [], 
               blankAfter  = [], allAfter  = [];
@@ -210,7 +210,7 @@ describe('Menu operations', () => {
 
       describe('The active theme changes', () => {
         it('to dark', () => {
-          cy.visit('http://localhost/sudoku')
+          cy.visit('http://localhost:8080')
           cy.get('.menu.settings .show-settings').click()
           cy.get('.menu.settings .control.theme').select('Dark') 
           cy.get('#game .bg').should('have.class', 'dark')
@@ -218,7 +218,7 @@ describe('Menu operations', () => {
         })
 
         it('and light', () => {
-          cy.visit('http://localhost/sudoku')
+          cy.visit('http://localhost:8080')
           cy.get('.menu.settings .show-settings').click()
           cy.get('.menu.settings .control.theme').select('Dark') 
           cy.get('.menu.settings .control.theme').select('Light') 
@@ -307,13 +307,13 @@ describe('Menu operations', () => {
 
     describe('The help menu opens', () => {
       it('upon clicking the \'Help\' button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.help .show-help').click()
         cy.get('.menu.help').should('not.have.class', 'hidden-fix-left')
       })
 
       it('as well as pressing the \'H\' keyboard button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.help .show-help').trigger('keydown', { key: 'h' })
         cy.get('.menu.help').should('not.have.class', 'hidden-fix-left')
       })
@@ -321,21 +321,21 @@ describe('Menu operations', () => {
 
     describe('The help menu closes', () => {
       it('upon clicking its \'x\' button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.help .show-help').click()
         cy.get('.menu.help header button.close').click()
         cy.get('.menu.help').should('have.class', 'hidden-fix-left')
       })
 
       it('as well as upon pressing the \'H\' keyboard button again', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.help .show-help').click()
         cy.get('body').trigger('keydown', { key: 'h' })
         cy.get('.menu.help').should('have.class', 'hidden-fix-left')
       })
 
       it('as well as upon pressing the \'Esc\' keyboard button', () => {
-        cy.visit('http://localhost/sudoku')
+        cy.visit('http://localhost:8080')
         cy.get('.menu.help .show-help').click()
         cy.get('body').trigger('keydown', { key: 'Escape' })
         cy.get('.menu.help').should('have.class', 'hidden-fix-left')
@@ -343,7 +343,7 @@ describe('Menu operations', () => {
     })
 
     it('The help menu contains the correct content', () => {
-      cy.visit('http://localhost/sudoku')
+      cy.visit('http://localhost:8080')
       cy.get('.menu.help').then(help => {
           const actual   = help.text().replace(/\s{2,}/gm, ' '),
                 expected = expectedHelpContent.replace(/\s{2,}/gm, ' ')

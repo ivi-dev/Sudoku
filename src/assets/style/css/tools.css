@@ -1,0 +1,53 @@
+.tools {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  min-width: 170px;
+}
+.tools .tool {
+  margin-bottom: 0.3em;
+  border: 1px solid;
+  padding: 0.5em;
+}
+.tools .tool .status {
+  width: 8px;
+  height: 8px;
+  background-color: grey;
+  border-radius: 50%;
+  display: inline-block;
+  transform: translateY(-2px) translateX(5px);
+}
+.tools .tool .status.valid {
+  background-color: limegreen;
+}
+.tools .tool .status.invalid {
+  background-color: orangered;
+}
+.tools .tool label {
+  display: block;
+  margin-bottom: 0.5em;
+  display: none;
+}
+.tools .tool .title {
+  margin: 0 0.5em 0.8em 0;
+  display: inline-block;
+}
+.tools .tool input:not([type=checkbox]) {
+  width: 40px;
+}
+.tools .tool .result {
+  color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.4em;
+  font-size: 90%;
+  font-style: italic;
+}
+.tools .tool .result .value {
+  font-weight: bold;
+}
+.tools .tool .result .value.success {
+  color: green;
+}
+.tools .tool .result .value.error {
+  color: red;
+}

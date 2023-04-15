@@ -1,0 +1,87 @@
+.menu {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  padding-bottom: 0.4em;
+  border-radius: 9px;
+  border-bottom-left-radius: 0;
+  color: rgba(0, 0, 0, 0.8);
+  background: white;
+  border: 3px solid DarkSLateGrey;
+  width: 200px;
+  transition: left 100ms;
+}
+
+.fixed-button {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0 0 0 2.5px;
+  width: 50px;
+  height: 50px;
+  color: white;
+  border-radius: 50%;
+  background: DarkSLateGrey;
+  font-size: 130%;
+  text-shadow: -1.5px 1.5px 2px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background 100ms;
+  z-index: -1;
+}
+.fixed-button:hover {
+  background: #1d3030;
+}
+
+.menu header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: DarkSLateGrey;
+  color: white;
+  padding: 0.6em 0.8em;
+  margin: 0 0 0.5em;
+  border-radius: 6px;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  text-shadow: -1.5px 1.5px 2px rgba(0, 0, 0, 0.5);
+}
+.menu header h1, .menu header h2, .menu header h3,
+.menu header h4, .menu header h5, .menu header h6 {
+  margin: 0 0 0 0.3em;
+  font-size: 1.2em;
+}
+.menu .body {
+  padding: 0.6em 0.8em;
+}
+.menu .body h1 {
+  font-size: 1.3em;
+  margin: 1.5em 0 0.5em;
+}
+.menu .body h1:first-of-type {
+  margin-top: 0.5em;
+}
+.menu .body h2 {
+  font-size: 1em;
+}
+.menu button.close {
+  margin-left: auto;
+  padding: 0.3px 0 0 0.5px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  font-size: 80%;
+  transition: background 100ms;
+}
+.menu button.close:hover {
+  background: orangered;
+  color: white;
+}

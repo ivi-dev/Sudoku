@@ -1,0 +1,95 @@
+$border-radius: 6px
+$body-padding: .6em .8em
+$primary-button-hover-bg: #1d3030
+$primary-button-bg-color: DarkSLateGrey
+$text-shadow: -1.5px 1.5px 2px rgba(0, 0, 0, 0.5)
+$bg-transition: background 100ms
+$left-transition: left 100ms
+
+
+.menu 
+	position: fixed
+	left: 10px
+	top: 10px
+	padding-bottom: .4em
+	border-radius: calc($border-radius + 3px)
+	border-bottom-left-radius: 0
+	color: rgba(0, 0, 0, 0.8)
+	background: white
+	border: 3px solid $primary-button-bg-color
+	width: 200px
+	transition: $left-transition
+
+.fixed-button 
+	$align: center
+	position: fixed
+	display: flex
+	align-items: $align
+	justify-content: $align
+	border: none
+	padding: 0 0 0 2.5px
+	width: 50px
+	height: 50px
+	color: white
+	border-radius: 50%
+	background: $primary-button-bg-color
+	font-size: 130%
+	text-shadow: $text-shadow
+	cursor: pointer
+	transition: $bg-transition
+	z-index: -1
+
+	&:hover 
+		background: $primary-button-hover-bg
+
+.menu 
+	header 
+		position: relative
+		display: flex
+		align-items: center
+		background: $primary-button-bg-color
+		color: white
+		padding: $body-padding
+		margin: 0 0 .5em
+		border-radius: $border-radius
+		border-top-left-radius: 0
+		border-bottom-right-radius: 0
+		border-bottom-left-radius: 0
+		text-shadow: $text-shadow
+
+		h1, h2, h3,
+		h4, h5, h6 
+			margin: 0 0 0 .3em
+			font-size: 1.2em
+
+	.body 
+		padding: $body-padding
+
+		h1 
+			font-size: 1.3em
+			margin: 1.5em 0 .5em
+
+			&:first-of-type 
+				margin-top: .5em
+
+		h2 
+			font-size: 1em
+
+	button.close 
+		margin-left: auto
+		padding: .3px 0 0 .5px
+		border: none
+		border-radius: 50%
+		display: flex
+		align-items: center
+		justify-content: center
+		background: white
+		width: 16px
+		height: 16px
+		cursor: pointer
+		font-size: 80%
+		transition: $bg-transition
+
+		&:hover 
+			background: orangered
+			color: white

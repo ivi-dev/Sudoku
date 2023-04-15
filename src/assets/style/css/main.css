@@ -1,0 +1,399 @@
+.cell {
+  width: 51.5px;
+  height: 51.5px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.cell:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.cell.active {
+  background-color: Aquamarine;
+}
+
+#grid.dark .cell {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6);
+}
+#grid.dark .cell:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+#grid.dark .cell.active {
+  background-color: DarkOrange;
+  color: black;
+}
+
+.subgrid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 33.33%;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+
+#grid.dark .subgrid {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.tools {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  min-width: 170px;
+}
+.tools .tool {
+  margin-bottom: 0.3em;
+  border: 1px solid;
+  padding: 0.5em;
+}
+.tools .tool .status {
+  width: 8px;
+  height: 8px;
+  background-color: grey;
+  border-radius: 50%;
+  display: inline-block;
+  transform: translateY(-2px) translateX(5px);
+}
+.tools .tool .status.valid {
+  background-color: limegreen;
+}
+.tools .tool .status.invalid {
+  background-color: orangered;
+}
+.tools .tool label {
+  display: block;
+  margin-bottom: 0.5em;
+  display: none;
+}
+.tools .tool .title {
+  margin: 0 0.5em 0.8em 0;
+  display: inline-block;
+}
+.tools .tool input:not([type=checkbox]) {
+  width: 40px;
+}
+.tools .tool .result {
+  color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.4em;
+  font-size: 90%;
+  font-style: italic;
+}
+.tools .tool .result .value {
+  font-weight: bold;
+}
+.tools .tool .result .value.success {
+  color: green;
+}
+.tools .tool .result .value.error {
+  color: red;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.hidden-fix-left {
+  position: fixed;
+  left: -100% !important;
+}
+
+.note-wrap {
+  position: absolute;
+  left: 33%;
+  bottom: 25px;
+}
+
+.note {
+  padding: 1em 2em;
+  border-radius: 10px;
+  outline: 2px solid;
+  outline-offset: 2px;
+  width: 500px;
+  line-height: 1.4;
+}
+.note .icon {
+  position: absolute;
+  top: -25px;
+  left: -25px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 260%;
+  padding: 3px;
+}
+.note h1 {
+  margin: 0 0 0.2em;
+  font-size: 150%;
+}
+.note.success {
+  outline-color: green;
+  background: green;
+  color: white;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
+}
+.note.success .icon.success {
+  display: flex !important;
+  color: green;
+  border: 2px solid green;
+}
+.note.error {
+  outline-color: tomato;
+  background: tomato;
+  color: white;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
+}
+.note.error .icon.error {
+  display: flex !important;
+  color: tomato;
+  border: 2px solid tomato;
+}
+
+.prompt-wrap {
+  position: absolute;
+  left: 33%;
+  top: 0px;
+  width: 100%;
+}
+
+.prompt {
+  position: relative;
+  top: -8px;
+  width: 500px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px 20px 70px;
+  background: white;
+  background: #00bfff;
+  color: white;
+  z-index: 1;
+}
+.prompt .body {
+  line-height: 1.4;
+  text-shadow: -1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+.prompt footer {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+}
+.prompt footer button {
+  background: HoneyDew;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.prompt footer button:last-of-type {
+  margin-right: 0;
+}
+.prompt footer button:hover {
+  background: BlanchedAlmond;
+}
+
+.menu {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  padding-bottom: 0.4em;
+  border-radius: 9px;
+  border-bottom-left-radius: 0;
+  color: rgba(0, 0, 0, 0.8);
+  background: white;
+  border: 3px solid DarkSLateGrey;
+  width: 200px;
+  transition: left 100ms;
+}
+
+.fixed-button {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0 0 0 2.5px;
+  width: 50px;
+  height: 50px;
+  color: white;
+  border-radius: 50%;
+  background: DarkSLateGrey;
+  font-size: 130%;
+  text-shadow: -1.5px 1.5px 2px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background 100ms;
+  z-index: -1;
+}
+.fixed-button:hover {
+  background: #1d3030;
+}
+
+.menu header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: DarkSLateGrey;
+  color: white;
+  padding: 0.6em 0.8em;
+  margin: 0 0 0.5em;
+  border-radius: 6px;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  text-shadow: -1.5px 1.5px 2px rgba(0, 0, 0, 0.5);
+}
+.menu header h1, .menu header h2, .menu header h3,
+.menu header h4, .menu header h5, .menu header h6 {
+  margin: 0 0 0 0.3em;
+  font-size: 1.2em;
+}
+.menu .body {
+  padding: 0.6em 0.8em;
+}
+.menu .body h1 {
+  font-size: 1.3em;
+  margin: 1.5em 0 0.5em;
+}
+.menu .body h1:first-of-type {
+  margin-top: 0.5em;
+}
+.menu .body h2 {
+  font-size: 1em;
+}
+.menu button.close {
+  margin-left: auto;
+  padding: 0.3px 0 0 0.5px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  font-size: 80%;
+  transition: background 100ms;
+}
+.menu button.close:hover {
+  background: orangered;
+  color: white;
+}
+
+.fixed-button.start-new-game {
+  top: 10px;
+  left: 10px;
+}
+
+.fixed-button.show-settings {
+  top: 70px;
+  left: 10px;
+}
+
+.menu .body .setting {
+  font-size: 90%;
+  display: flex;
+}
+.menu .body .setting:not(:first-of-type) {
+  margin-top: 1em;
+}
+.menu .body .setting label {
+  font-weight: bold;
+  width: 50%;
+}
+.menu .body .setting .control {
+  width: 50%;
+}
+
+.fixed-button.show-help {
+  top: 130px;
+  left: 10px;
+}
+
+.help.menu {
+  width: 320px;
+}
+.help.menu .body {
+  height: 80vh;
+  overflow-y: auto;
+  font-size: 95%;
+}
+.help.menu .body dt {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 95%;
+}
+.help.menu .body dt.small {
+  font-size: 90%;
+}
+.help.menu .body dd {
+  margin: 0.2em 0 0.8em;
+}
+.help.menu .body .fixed-button {
+  position: relative;
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  vertical-align: bottom;
+}
+.help.menu .body .fixed-button i {
+  font-size: 50%;
+  transform: translate(-0.5px, 1px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+#game {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#game .bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#game .bg.dark {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+#grid {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 471.3px;
+  border-bottom: 3px solid;
+  border-right: 3px solid;
+  margin-top: -8em;
+}
+#grid.dark {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+#grid.over-dark {
+  color: rgba(255, 255, 255, 0.6);
+}

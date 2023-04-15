@@ -1,0 +1,9 @@
+<div id="grid" :class="[{ dark: menus.settings.theme.active === 'Dark' }]">
+	<div v-for="subgrid in subgrids" class="subgrid">
+		<div v-for="cell in subgrid.cells" 
+			 :class="[{ active: activeCell.row === cell.row && activeCell.col === cell.col }, 'cell']"
+			 @click="highlightCell(cell)">
+			{{ cell.value }}
+		</div>
+	</div>
+</div>

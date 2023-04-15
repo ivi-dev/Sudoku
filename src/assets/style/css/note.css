@@ -1,0 +1,52 @@
+.note-wrap {
+  position: absolute;
+  left: 33%;
+  bottom: 25px;
+}
+
+.note {
+  padding: 1em 2em;
+  border-radius: 10px;
+  outline: 2px solid;
+  outline-offset: 2px;
+  width: 500px;
+  line-height: 1.4;
+}
+.note .icon {
+  position: absolute;
+  top: -25px;
+  left: -25px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 260%;
+  padding: 3px;
+}
+.note h1 {
+  margin: 0 0 0.2em;
+  font-size: 150%;
+}
+.note.success {
+  outline-color: green;
+  background: green;
+  color: white;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
+}
+.note.success .icon.success {
+  display: flex !important;
+  color: green;
+  border: 2px solid green;
+}
+.note.error {
+  outline-color: tomato;
+  background: tomato;
+  color: white;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
+}
+.note.error .icon.error {
+  display: flex !important;
+  color: tomato;
+  border: 2px solid tomato;
+}

@@ -1,0 +1,51 @@
+@use "./_colors.sass"
+@use "./subgrid.sass"
+@use "./tools.sass"
+@use "./util.sass"
+@use "./note.sass"
+@use "./prompt.sass"
+@use "./menus/base.sass"
+@use "./menus/new-game.sass"
+@use "./menus/settings.sass"
+@use "./menus/help.sass"
+
+
+*
+	box-sizing: border-box
+
+body 
+	margin: 0
+	padding: 0
+	font-family: sans-serif
+	overflow: hidden
+
+#game 
+	position: relative
+	width: 100vw
+	height: 100vh
+	display: flex
+	align-items: center
+	justify-content: center
+
+	.bg 
+		position: absolute
+		width: 100%
+		height: 100%
+
+		&.dark 
+			background: colors.$color-dark-bg
+
+#grid 
+	position: relative
+	display: flex
+	flex-wrap: wrap
+	width: 471.3px
+	border-bottom: 3px solid
+	border-right: 3px solid
+	margin-top: -8em
+
+	&.dark 
+		border-color: colors.$color-text-on-dark
+
+	&.over-dark 
+		color: rgba(255, 255, 255, 0.6)

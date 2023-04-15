@@ -1,15 +1,21 @@
 {
-  "name": "sudoku",
-  "version": "0.0.1-BETA.1",
+  "name": "Sudoku",
+  "version": "1.0.0",
   "description": "A browser-based Sudoku puzzle game",
   "main": "main.js",
   "scripts": {
     "serve": "http-server -p 8080",
+    "start": "http-server -p 8080 -o",
+    "sass:watch": "sass --watch --no-source-map src/assets/style/sass:src/assets/style/css",
+    "sass:compile": "sass --no-source-map src/assets/style/sass:src/assets/style/css",
+    "ejs:compile": "ejs index.ejs -o ./index.html -f ./package.json",
     "docs": "jsdoc -r -d docs src",
-    "cypress:open": "cypress open",
-    "cypress:run:chrome": "cypress run -b chrome",
-    "cypress:run:firefox": "cypress run -b firefox",
-    "cypress:run:edge": "cypress run -b edge"
+    "build": "run-s sass:compile ejs:compile docs",
+    "cyp:open": "cypress open",
+    "cyp:run:chrome": "cypress run -b chrome",
+    "cyp:run:firefox": "cypress run -b firefox",
+    "cyp:run:edge": "cypress run -b edge",
+    "cyp:all": "run-s cyp:run:*"
   },
   "keywords": [
     "sudoku",
@@ -21,7 +27,10 @@
   "license": "ISC",
   "devDependencies": {
     "cypress": "^12.9.0",
+    "ejs": "^3.1.9",
     "http-server": "^14.1.1",
-    "jsdoc": "^4.0.2"
+    "jsdoc": "^4.0.2",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.62.0"
   }
 }

@@ -1,8 +1,0 @@
-.hidden {
-	display: none !important;
-}
-
-.hidden-fix-left {
-	position: fixed;
-	left: -100% !important;
-}

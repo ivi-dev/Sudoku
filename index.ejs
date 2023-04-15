@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><%= name %> <%= version %></title>
+	<link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<link rel="icon" type="image/x-icon" href="./src/assets/img/favicon.ico">
+	<link href="./src/assets/font-awesome/css/fontawesome.min.css" rel="stylesheet">
+	<link href="./src/assets/font-awesome/css/solid.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./src/assets/style/css/main.css">
+</head>
+<body>
+	<div id="game">
+		<div :class="[{ dark: menus.settings.theme.active === 'Dark' }, 'bg']"></div>
+		<%- include('src/assets/inc/prompts/_all.ejs'); %>
+		<%- include('src/assets/inc/_grid.ejs'); %>
+		<%- include('src/assets/inc/menus/_all.ejs'); %>
+		<%- include('src/assets/inc/notifications/_all.ejs'); %>
+		<%- include('src/assets/inc/sound/_all.ejs'); %>
+	</div>
+	<script src="./src/lib/vue-3.2.47-prod.min.js"></script>
+	<script src="./src/lib/lodash-full-4.7.15.js"></script>
+	<script type="module" src="./src/main.js"></script>
+	<script type="module">
+		import { initGame } from './src/main.js';
+		initGame();
+	</script>
+</body>
+</html>

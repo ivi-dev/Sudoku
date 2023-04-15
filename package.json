@@ -15,7 +15,7 @@
     "cyp:run:chrome": "cypress run -b chrome",
     "cyp:run:firefox": "cypress run -b firefox",
     "cyp:run:edge": "cypress run -b edge",
-    "cyp:run:all": "run-s cyp:**"
+    "cyp:all": "run-s cyp:run:*"
   },
   "keywords": [
     "sudoku",

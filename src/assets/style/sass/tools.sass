@@ -1,0 +1,52 @@
+.tools 
+	position: absolute
+	top: 10px
+	right: 15px
+	min-width: 170px
+
+	.tool 
+		margin-bottom: .3em
+		border: 1px solid
+		padding: .5em
+
+		.status 
+			width: 8px
+			height: 8px
+			background-color: grey
+			border-radius: 50%
+			display: inline-block
+			transform: translateY(-2px) translateX(5px)
+
+			&.valid 
+				background-color: limegreen
+
+			&.invalid 
+				background-color: orangered
+
+		label 
+			display: block
+			margin-bottom: .5em
+			display: none
+
+		.title 
+			margin: 0 .5em .8em 0
+			display: inline-block
+
+		input:not([type=checkbox]) 
+			width: 40px
+
+		.result 
+			color: rgba(0, 0, 0, 0.7)
+			background-color: rgba(0, 0, 0, 0.05)
+			padding: .4em
+			font-size: 90%
+			font-style: italic
+
+			.value 
+				font-weight: bold
+
+				&.success 
+					color: green
+
+				&.error 
+					color: red

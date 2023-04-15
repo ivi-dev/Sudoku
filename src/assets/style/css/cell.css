@@ -1,0 +1,28 @@
+.cell {
+  width: 51.5px;
+  height: 51.5px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.cell:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.cell.active {
+  background-color: Aquamarine;
+}
+
+#grid.dark .cell {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6);
+}
+#grid.dark .cell:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+#grid.dark .cell.active {
+  background-color: DarkOrange;
+  color: black;
+}

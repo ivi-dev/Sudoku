@@ -1,0 +1,47 @@
+.prompt-wrap {
+  position: absolute;
+  left: 33%;
+  top: 0px;
+  width: 100%;
+}
+
+.prompt {
+  position: relative;
+  top: -8px;
+  width: 500px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px 20px 70px;
+  background: white;
+  background: #00bfff;
+  color: white;
+  z-index: 1;
+}
+.prompt .body {
+  line-height: 1.4;
+  text-shadow: -1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+.prompt footer {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+}
+.prompt footer button {
+  background: HoneyDew;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.prompt footer button:last-of-type {
+  margin-right: 0;
+}
+.prompt footer button:hover {
+  background: BlanchedAlmond;
+}

@@ -1,0 +1,32 @@
+@use "./_colors.sass"
+
+
+.cell 
+	$size: 51.5px
+	$border: 1px solid
+	$align: center
+	width: $size
+	height: $size
+	border-top: $border
+	border-left: $border
+	display: flex
+	align-items: $align
+	justify-content: $align
+	cursor: pointer
+
+	&:hover 
+		background-color: rgba(0, 0, 0, 0.1)
+
+	&.active 
+		background-color: Aquamarine
+
+#grid.dark .cell 
+	border-color: colors.$color-text-on-dark
+	color: colors.$color-text-on-dark
+
+	&:hover 
+		background-color: rgba(255, 255, 255, .2)
+
+	&.active 
+		background-color: DarkOrange
+		color: black

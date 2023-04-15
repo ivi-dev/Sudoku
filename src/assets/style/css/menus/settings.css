@@ -1,24 +1,19 @@
-@import "./_base.css";
-
 .fixed-button.show-settings {
-	top: 70px;
-	left: 10px;
+  top: 70px;
+  left: 10px;
 }
 
 .menu .body .setting {
-	font-size: 90%;
-	display: flex;
+  font-size: 90%;
+  display: flex;
 }
-
 .menu .body .setting:not(:first-of-type) {
-	margin-top: 1em;
+  margin-top: 1em;
 }
-
 .menu .body .setting label {
-	font-weight: bold;
-	width: 50%;
+  font-weight: bold;
+  width: 50%;
 }
-
 .menu .body .setting .control {
-	width: 50%;
+  width: 50%;
 }

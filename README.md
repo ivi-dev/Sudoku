@@ -51,7 +51,7 @@ to enjoy the challenge and work your brain as you relax. If you
 find yourself getting frustrated, walk away. Let your mind clear 
 and try again later. The most important thing is to have fun.
 
-# What's this app about
+# What's this app about?
 
 This app delivers Sudoku to your device's browser, so that
 it's right there for you to enjoy.

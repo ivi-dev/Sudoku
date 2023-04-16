@@ -12,10 +12,10 @@ import methods from './methods.js';
 
 /**
  * Initialize the game. Essentially
- * invokes external:Vue.createApp with 
- * the required options to create the 
- * external:Application instance, and then 
- * external:Application#mount to mount it 
+ * invokes the Vue's createApp() with 
+ * the required options to create an 
+ * application instance, and then 
+ * Application#mount to mount it 
  * to the DOM.
  * 
  * @see https://vuejs.org/api/application.html#createapp

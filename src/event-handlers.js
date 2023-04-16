@@ -11,13 +11,11 @@
  * DOM elements. 
  * 
  * @param {object} this_ A reference to the constructed
- * app object. Required since some attached event handlers
- * modify the app's state.
+ * [app]{@link https://vuejs.org/api/application.html} object.
  * 
- * @see https://vuejs.org/guide/essentials/application.html
  * @see https://vuejs.org/guide/introduction.html#api-styles
  */
-export default function(this_) {
+function attachEeventHandlers(this_) {
 	// Place a number in the currently active grid cell on pressing
 	// a digit key on the keyboard
 	document.addEventListener('keypress', event => {
@@ -113,3 +111,5 @@ export default function(this_) {
 		}
 	});
 }
+
+export default attachEeventHandlers;

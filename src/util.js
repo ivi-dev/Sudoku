@@ -1,5 +1,5 @@
 /**
- * A modules defining general helpful utilities.
+ * A modules defining general supporting utilities.
  * 
  * @module
  */

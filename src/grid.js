@@ -92,9 +92,8 @@ class Grid {
 	 * 
 	 * @method
 	 * @return {object[][]} This gird's flat structure represented
-	 * as a two-dimensional array, with the first dimension 
-	 * representing the grid's rows, and the second one, the 
-	 * particular row's columns.
+	 * as a two-dimensional array, in which the grid's rows occupy 
+	 * the first dimension and the rows' columns - the socond one.
 	 */
 	get flat() {
 		return this.#store;
@@ -106,6 +105,25 @@ class Grid {
  * A class representing a portion of a larger grid of cells.
  */
 class Subgrid {
+	/**
+	 * @prop {SubgridPlacementSpec} grid This subgrid's 
+	 * placement specification.
+	 * @see SubgridPlacementSpec
+	 */
+	grid;
+
+	/**
+	 * @prop {Bounds} bounds This subgrid's bounds.
+	 * @see Bounds
+	 */
+	bounds;
+
+	/**
+	 * @prop {Cell[]} cells This subgrid's cells.
+	 * @see Cell
+	 */
+	cells;
+
 	/**
 	 * Construct a new subgrid.
 	 * 
@@ -135,6 +153,22 @@ class Subgrid {
  */
 class SubgridPlacementSpec {
 	/**
+	 * @prop {number[]} rows The containing grid's rows 
+	 * that a subgrid spans across.
+	 * @see Grid
+	 * @see Subgrid
+	 */
+	rows;
+
+	/**
+	 * @prop {number[]} rows The containing grid's columns 
+	 * that a subgrid spans across.
+	 * @see Grid
+	 * @see Subgrid
+	 */
+	cols;
+
+	/**
 	 * Construct a new spec object with the provided
 	 * parameters.
 	 * 
@@ -160,6 +194,26 @@ class SubgridPlacementSpec {
  */
 class SubgridBounds {
 	/**
+	 * @prop {number} rowStart The index of the containing 
+	 * grid's column that marks the horizontal position of 
+	 * the top-eft edge of a subgrid inside of its 
+	 * containing grid.
+	 * @see Grid
+	 * @see Subgrid
+	 */
+	rowStart;
+
+	/**
+	 * @prop {number} colStart The index of the containing 
+	 * grid's column that marks the vertical position of 
+	 * the top-eft edge of a subgrid inside of its 
+	 * containing grid.
+	 * @see Grid
+	 * @see Subgrid
+	 */
+	colStart;
+
+	/**
 	 * Construct a new bounds instance with the provided
 	 * row and column coordinates.
 	 * 
@@ -177,11 +231,31 @@ class SubgridBounds {
  */
 class Cell {
 	/**
+	 * @prop {number} row The index (0-based) of the 
+	 * subgrid's row that this cell is on.
+	 * @see Subgrid
+	 */
+	row;
+
+	/**
+	 * @prop {number} col The index (0-based) of the 
+	 * subgrid's column that this cell is on.
+	 * @see Subgrid
+	 */
+	col;
+
+	/**
+	 * @prop {*} value The value displayed inside of this 
+	 * cell.
+	 */
+	value;
+
+	/**
 	 * Construct a new grid cell.
 	 * 
 	 * @param {number} row This cell's grid row.
 	 * @param {number} col This cell's grid column.
-	 * @param {*} [val=null] val This cell's contained 
+	 * @param {*} [val=null] This cell's contained 
 	 * value, defaults to null (empty).
 	 */
 	constructor(row, col, val = null) {

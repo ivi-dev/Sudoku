@@ -1,5 +1,5 @@
 .cell {
-  width: 51.5px;
+  width: 33.33%;
   height: 51.5px;
   border-top: 1px solid;
   border-left: 1px solid;
@@ -386,7 +386,7 @@ body {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  width: 471.3px;
+  width: 479px;
   border-bottom: 3px solid;
   border-right: 3px solid;
   margin-top: -8em;

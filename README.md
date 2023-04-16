@@ -72,7 +72,7 @@ source code first by cloning this repo:
 
 ## Installing dependencies
 
-The app's a Node package so installing dependencies is as easy as:
+The app is a Node package, so installing dependencies is as easy as:
 
 	npm i
 

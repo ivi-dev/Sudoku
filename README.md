@@ -51,6 +51,10 @@ to enjoy the challenge and work your brain as you relax. If you
 find yourself getting frustrated, walk away. Let your mind clear 
 and try again later. The most important thing is to have fun.
 
+If you need help at any point in the game, just open up the in-game
+help menu by clicking the question mark button on the side of the 
+screen or pressing 'H' on the keyboard.
+
 # What's this app about?
 
 This app delivers Sudoku to your device's browser, so that

@@ -24,9 +24,12 @@ jobs:
           node-version: 16
           cache: 'npm'
       - name: Install dependencies
-        run: |
-          npm ci
-          ls /home/runner/.cache/Cypress/12.9.0/Cypress
+        run: npm ci
+      - name: Cache Cypress executable
+        uses: actions/cache@2.1.8
+        with:
+          path: /home/runner/.cache/Cypress
+          key: cypress
       - name: Build the app
         run: npm run build
       - name: Archive the app's source
@@ -50,6 +53,10 @@ jobs:
         run: |
           tar -xf app.tar
           rm app.tar
+      - name: Restore Cypress from cache
+        uses: actions/cache@2.1.8
+        with:
+          key: cypress
       - name: Run tests 
         uses: cypress-io/github-action@v5
         with:

@@ -28,7 +28,7 @@ jobs:
       - name: Cache Cypress executable
         uses: actions/cache@v3
         with:
-          key: cypress-${{ hashFiles('/home/runner/.cache/Cypress/**') }}
+          key: cypress-${{ hashFiles('/home/runner/.cache/Cypress/**/*') }}
           path: /home/runner/.cache/Cypress
       - name: Build the app
         run: npm run build

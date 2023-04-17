@@ -54,7 +54,7 @@ jobs:
           install: false
           start: npm run serve
           wait-on: 'http://localhost:8080'
-          command: np run cyp:all
+          command: npm run cyp:all
 #   deploy:
 #     environment:
 #       name: github-pages

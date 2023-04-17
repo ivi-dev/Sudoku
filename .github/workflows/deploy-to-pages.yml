@@ -27,15 +27,15 @@ jobs:
         run: npm ci
       - name: Build the app
         run: npm run build
-      - name: PWD
-        run: pwd
       - name: Archive the app's source
-        run: tar --exclude=app.tar -czf app.tar .
+        run: |
+          mkdir archive
+          tar --exclude=archive -czf archive/app.tar .
       - name: Create a build artifact
         uses: actions/upload-artifact@v3
         with:
           name: build-artifact
-          path: app.tar
+          path: archive/app.tar
   test:
     runs-on: ubuntu-latest
     needs: build

@@ -28,7 +28,7 @@ class Grid {
 	 * @param {number} numRows The desired number of rows.
 	 * @param {Subgrid} subgrids The subgrids that make up the grid.
 	 * 
-	 * @see {@link Subgrid}
+	 * @see module:grid~Subgrid
 	 */
 	constructor(numRows, ...subgrids) {
 		this.#subgrids = this.indexSubgrids(...subgrids);
@@ -81,7 +81,7 @@ class Grid {
 	 * 
 	 * @method
 	 * @return {Subgrid[]} This grid's subgrids.
-	 * @see Subgrid
+	 * @see module:grid~Subgrid
 	 */
 	get subgrids() {
 		return this.#subgrids;
@@ -108,19 +108,19 @@ class Subgrid {
 	/**
 	 * @prop {SubgridPlacementSpec} grid This subgrid's 
 	 * placement specification.
-	 * @see SubgridPlacementSpec
+	 * @see module:grid~SubgridPlacementSpec
 	 */
 	grid;
 
 	/**
 	 * @prop {Bounds} bounds This subgrid's bounds.
-	 * @see Bounds
+	 * @see module:grid~SubgridBounds
 	 */
 	bounds;
 
 	/**
 	 * @prop {Cell[]} cells This subgrid's cells.
-	 * @see Cell
+	 * @see module:grid~Cell
 	 */
 	cells;
 
@@ -132,9 +132,9 @@ class Subgrid {
 	 * @param {Bounds} bounds This subgrid's bounds.
 	 * @param {Cell} cells This subgrid's cells.
 	 * 
-	 * @see SubgridPlacementSpec
-	 * @see Bounds
-	 * @see Cell
+	 * @see module:grid~SubgridPlacementSpec
+	 * @see module:grid~SubgridBounds
+	 * @see module:grid~Cell
 	 */
 	constructor(placementSpec, bounds, ...cells) {
 		this.grid = placementSpec;
@@ -155,16 +155,16 @@ class SubgridPlacementSpec {
 	/**
 	 * @prop {number[]} rows The containing grid's rows 
 	 * that a subgrid spans across.
-	 * @see Grid
-	 * @see Subgrid
+	 * @see module:grid~Grid
+	 * @see module:grid~Subgrid
 	 */
 	rows;
 
 	/**
 	 * @prop {number[]} rows The containing grid's columns 
 	 * that a subgrid spans across.
-	 * @see Grid
-	 * @see Subgrid
+	 * @see module:grid~Grid
+	 * @see module:grid~Subgrid
 	 */
 	cols;
 
@@ -198,8 +198,8 @@ class SubgridBounds {
 	 * grid's column that marks the horizontal position of 
 	 * the top-eft edge of a subgrid inside of its 
 	 * containing grid.
-	 * @see Grid
-	 * @see Subgrid
+	 * @see module:grid~Grid
+	 * @see module:grid~Subgrid
 	 */
 	rowStart;
 
@@ -208,8 +208,8 @@ class SubgridBounds {
 	 * grid's column that marks the vertical position of 
 	 * the top-eft edge of a subgrid inside of its 
 	 * containing grid.
-	 * @see Grid
-	 * @see Subgrid
+	 * @see module:grid~Grid
+	 * @see module:grid~Subgrid
 	 */
 	colStart;
 
@@ -233,14 +233,14 @@ class Cell {
 	/**
 	 * @prop {number} row The index (0-based) of the 
 	 * subgrid's row that this cell is on.
-	 * @see Subgrid
+	 * @see module:grid~Subgrid
 	 */
 	row;
 
 	/**
 	 * @prop {number} col The index (0-based) of the 
 	 * subgrid's column that this cell is on.
-	 * @see Subgrid
+	 * @see module:grid~Subgrid
 	 */
 	col;
 

@@ -27,11 +27,13 @@ jobs:
         run: npm ci
       - name: Build the app
         run: npm run build
+      - name: Archive the app's source
+        run: tar -czf app.tar .
       - name: Create a build artifact
         uses: actions/upload-artifact@v3
         with:
           name: build-artifact
-          path: .
+          path: app.tar
   test:
     runs-on: ubuntu-latest
     needs: build

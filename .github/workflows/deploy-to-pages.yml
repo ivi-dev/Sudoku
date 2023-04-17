@@ -28,7 +28,7 @@ jobs:
       - name: Cache Cypress executable
         uses: actions/cache@v3
         with:
-          key: cypress-${{ hashFiles('/home/runner/.cache/Cypress/Cypress') }}
+          key: cypress-${{ hashFiles('/home/runner/.cache/Cypress/**') }}
           path: /home/runner/.cache/Cypress
       - name: Build the app
         run: npm run build
@@ -53,6 +53,11 @@ jobs:
         run: |
           tar -xf app.tar
           rm app.tar
+      - name: Restore Cypress executable
+        uses: actions/cache/restore@v3
+        with:
+          key: cypress-${{ hashFiles('/home/runner/.cache/Cypress/**') }}
+          path: /home/runner/.cache/Cypress
       - name: Run tests 
         uses: cypress-io/github-action@v5
         with:

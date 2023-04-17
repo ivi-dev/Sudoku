@@ -48,7 +48,6 @@ jobs:
         run: |
           tar -xf app.tar
           rm app.tar
-          ls -la
       - name: Run tests 
         uses: cypress-io/github-action@v5
         with:

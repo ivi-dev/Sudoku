@@ -28,7 +28,7 @@ jobs:
       - name: Build the app
         run: npm run build
       - name: Archive the app's source
-        run: tar -czf app.tar .
+        run: tar --exclude=app.tar -czf app.tar .
       - name: Create a build artifact
         uses: actions/upload-artifact@v3
         with:

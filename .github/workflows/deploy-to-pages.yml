@@ -44,6 +44,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-artifact
+      - name: LL
+        run: |
+          pwd
+          ls -l
       - name: Run tests 
         uses: cypress-io/github-action@v5
         with:

@@ -44,10 +44,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-artifact
-      - name: LL
+      - name: Extract build artifact
         run: |
-          pwd
-          ls -l
+          tar -xf app.tar
+          rm app.tar
       - name: Run tests 
         uses: cypress-io/github-action@v5
         with:

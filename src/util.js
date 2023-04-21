@@ -5,10 +5,11 @@
  */
 
 /**
- * The callback invoked with the result of perc.
+ * The callback invoked with the result of perc().
  * 
  * @callback percDoneCb
  * @param {number} result
+ * @see module:util~perc
  */
 
 

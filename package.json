@@ -1,6 +1,6 @@
 {
   "name": "Sudoku",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A browser-based Sudoku puzzle game",
   "main": "main.js",
   "scripts": {

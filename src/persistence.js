@@ -13,8 +13,26 @@
  * object. That object can then be retreived 
  * from the browser's local storage by doing 
  * localStorage.getItem(STORAGE_KEY).
+ * 
+ * @default
  */
 const STORAGE_KEY = 'dev.ivi.Sudoku';
+
+/**
+ * The path to the game's difficulty setting
+ * sotred in the browser's local storage.
+ * 
+ * @default
+ */
+const DIFFICULTY = 'settings.difficulty';
+
+/**
+ * The path to the game's theme setting
+ * sotred in the browser's local storage.
+ * 
+ * @default
+ */
+const THEME = 'settings.theme';
 
 /**
  * The model of the data being stored in the 
@@ -23,21 +41,9 @@ const STORAGE_KEY = 'dev.ivi.Sudoku';
 const model = { 
     settings: { 
         difficulty: null, 
-        theme: null 
+        theme:      null 
     } 
 };
-
-/**
- * The path to the game's difficulty setting
- * sotred in the browser's local storage.
- */
-const DIFFICULTY = 'settings.difficulty';
-
-/**
- * The path to the game's theme setting
- * sotred in the browser's local storage.
- */
-const THEME = 'settings.theme';
 
 
 /**
@@ -59,17 +65,13 @@ function init() {
  * 
  * @param {string} path The path to the
  * value's key, relative to the root-level 
- * persistence object (check the example below).
+ * persistence object. Use this module's constants,
+ * like DIFFICULTY, THEME etc., for convenience.
  * @param val {*} val The value to store under
  * path.
  * @example
- * set('settings.difficulty', 'Medium')
- * 
- * // The above stores the value 'Medium' under 
- * // 'settings.difficulty'. The full path to that value 
- * // in the stored data object will be 
- * // 'STORAGE_KEY.settings.difficulty' and can 
- * // later be retreived with get(DIFFICULTY).
+ * // Persist the game's difficulty setting as 'Medium'.
+ * set(DIFFICULTY, 'Medium')
  * @see module:persistence~STORAGE_KEY
  */
 function set(path, val) {
@@ -89,15 +91,14 @@ function set(path, val) {
 /**
  * Retreive a value from the browser's local storage.
  * 
- * @param {string} path The path to the value of interest.
+ * @param {string} path The path to the value of interest, 
+ * relative to the root-level persistence object.
  * @return The value as retreived from the browser's 
- * local storage, relative to the root-level 
- * persistence object (check the example below).
+ * local storage.
  * @example
- * get(DIFFICULTY)
- * 
- * // The above retreives the gamme's 'difficulty'
+ * // Retrieve the game's difficulty
  * // setting from the browser's local storage.
+ * get(DIFFICULTY)
  * @see module:persistence~STORAGE_KEY
  */
 function get(path) {

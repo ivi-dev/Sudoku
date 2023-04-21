@@ -44,20 +44,32 @@ function indices(arr) {
  * of a certain DOM element.
  * 
  * @param {MouseEvent} event The click event.
- * @param {Node} boundary the DOM node serving as 
- * a boundary for determining the click position.
+ * @param {Node|Node[]} boundary the DOM node(s) serving 
+ * as a boundary for determining the click position.
  * If the clicked-on element is inside of that boundary 
  * node, or the boudnary node itself has been clicked on, 
  * then the click is considered internal (has happened 
  * inside the boundary), otherwise the click is considered 
  * an external one (has happened outside of the boundary).
+ * If an array is passed, then each of the boundaries is
+ * checked in sequence.
  * @return {boolean} True if the click has happened outside
  * of the boundary node, meaning the boundary node itslef or 
  * any of its childern has been clicked on, false otherwise.
  */
 function isOutsideClick(event, boundary) {
-    return !isParent(boundary, event.target) && 
-           event.target !== boundary
+    if (!(boundary instanceof NodeList))
+        return !isParent(boundary, event.target) && 
+               event.target !== boundary
+    else {
+        const res = [];
+        for (const el of boundary) 
+            if (!isParent(el, event.target) && 
+                event.target !== el)
+                res.push(false);
+            else res.push(true);
+        return res.every(r => r === false);
+    }
 }
 
 /**
@@ -97,4 +109,22 @@ function isParent(nodeA, nodeB) {
     return false
 }
 
-export { perc, indices, isOutsideClick };
+/**
+ * Determine whether a DOM node is any of 
+ * the provided comparison nodes.
+ * 
+ * @param {Node} node A DOM node to check
+ * for equality.
+ * @param {NodeList} nodes A NodeList nodes 
+ * to compare to.
+ * @return {boolean} True if the provided
+ * node is equal to one of the provided
+ * comparison nodes, false otherwise.
+ */
+function isAnyOf(node, nodes) {
+    for (const n of nodes)
+        if (node === n) return true;
+    return false;
+}
+
+export { perc, indices, isOutsideClick, isAnyOf };

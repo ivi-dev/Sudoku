@@ -142,6 +142,13 @@ describe('Menu operations', () => {
         cy.get('body').trigger('keydown', { key: 'Escape' })
         cy.get('.menu.settings').should('have.class', 'hidden-fix-left')
       })
+
+      it('as well as clicking outside of the menu', () => {
+        cy.visit('http://localhost:8080')
+        cy.get('.menu.settings .show-settings').click()
+        cy.get('#grid').click()
+        cy.get('.menu.settings').should('have.class', 'hidden-fix-left')
+      })
     })
 
     describe('Trying to change the game\'s difficulty', () => {
@@ -367,6 +374,13 @@ describe('Menu operations', () => {
         cy.visit('http://localhost:8080')
         cy.get('.menu.help .show-help').click()
         cy.get('body').trigger('keydown', { key: 'Escape' })
+        cy.get('.menu.help').should('have.class', 'hidden-fix-left')
+      })
+
+      it('as well as clicking outside of the menu', () => {
+        cy.visit('http://localhost:8080')
+        cy.get('.menu.help .show-help').click()
+        cy.get('#grid').click()
         cy.get('.menu.help').should('have.class', 'hidden-fix-left')
       })
     })

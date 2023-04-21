@@ -41,6 +41,15 @@ describe('Grid operations', () => {
     cy.get('@cell').should('not.have.class', 'active')
   })
 
+  it('Clcking outside of the grid removes the highlight from the active cell', () => {
+    cy.visit('http://localhost:8080')
+    cy.get('#grid .subgrid:first-of-type .cell:first-of-type')
+      .as('cell')
+      .click({ force: true })
+    cy.get('.bg').click({ force: true })
+    cy.get('@cell').should('not.have.class', 'active')
+  })
+
   describe('Game completion', () => {
     const expectedSuccessNotification = "Congrats! You've completed the game! "  +
                                         "Go ahead and start a new one. Increase " +

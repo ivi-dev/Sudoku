@@ -7,7 +7,7 @@
 
 
 import { set as save, DIFFICULTY } from './persistence.js';
-import { isOutsideClick } from './util.js';
+import { isOutsideClick, isAnyOf } from './util.js';
 
 /**
  * Attach the game's event handlers to their corresponding
@@ -104,6 +104,16 @@ function attachEeventHandlers(this_) {
 	// Close the Help menu on pressing 'Escape'
 	document.addEventListener('keydown', event => {
 		if (event.key === 'Escape') {
+			this_.toggleHelp(false);
+		}
+	});
+	// Close all menus on clicking outside them
+	document.addEventListener('click', event => {
+		const menus = document.querySelectorAll('.menu'),
+		      fixedButtons = document.querySelectorAll('.fixed-button');
+		if (isOutsideClick(event, menus) && 
+			isOutsideClick(event, fixedButtons)) {
+			this_.toggleSettings(false);
 			this_.toggleHelp(false);
 		}
 	});

@@ -39,4 +39,62 @@ function indices(arr) {
 	return _.map(arr, (_, index) => index);
 }
 
-export { perc, indices };
+/**
+ * Determine whether a mouse click happened outside
+ * of a certain DOM element.
+ * 
+ * @param {MouseEvent} event The click event.
+ * @param {Node} boundary the DOM node serving as 
+ * a boundary for determining the click position.
+ * If the clicked-on element is inside of that boundary 
+ * node, or the boudnary node itself has been clicked on, 
+ * then the click is considered internal (has happened 
+ * inside the boundary), otherwise the click is considered 
+ * an external one (has happened outside of the boundary).
+ * @return {boolean} True if the click has happened outside
+ * of the boundary node, meaning the boundary node itslef or 
+ * any of its childern has been clicked on, false otherwise.
+ */
+function isOutsideClick(event, boundary) {
+    return !isParent(boundary, event.target) && 
+           event.target !== boundary
+}
+
+/**
+ * Get the parents of the provided DOM node.
+ * 
+ * @param {Node} node A DOM node to get the 
+ * parent nodes of.
+ * @return {Node[]} An array of the parents 
+ * of the provided DOM node.
+ */
+function parents(node) {
+    let parent = node.parentNode
+    const parents_ = [parent]
+    while (true) {
+        if (parent === null)
+            break
+        else {
+            parent = parent.parentNode
+            parents_.push(parent)
+        }
+    }
+    return parents_
+}
+
+/**
+ * Determine whether nodeA is a parent of nodeB.
+ * 
+ * @param {Node} nodeA A node to test for parenthood.
+ * @param {Node} nodeB A node to test for childhood.
+ * @return {boolean} True if nodeA is a parent of nodeB, 
+ * false otherwise.
+ */
+function isParent(nodeA, nodeB) {
+    const parents_ = parents(nodeB)
+    for (const parent of parents_)
+        if (parent === nodeA) return true
+    return false
+}
+
+export { perc, indices, isOutsideClick };

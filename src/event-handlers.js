@@ -7,6 +7,7 @@
 
 
 import { set as save, DIFFICULTY } from './persistence.js';
+import { isOutsideClick } from './util.js';
 
 /**
  * Attach the game's event handlers to their corresponding
@@ -22,7 +23,7 @@ function attachEeventHandlers(this_) {
 	// a digit key on the keyboard
 	document.addEventListener('keypress', event => {
 		const val = Number(event.key);
-		if (_.includes(this_.numbers, val) && this_.activeCell) {
+		if (_.includes(this_.numbers, val) && this_.isCellActive()) {
 			this_.setCell(this_.activeCell, val);
 			const gameComplete  = this_.validateGrid(),
 				  hasEmptyCells = this_.hasEmptyCells();
@@ -112,6 +113,12 @@ function attachEeventHandlers(this_) {
 		if (event.key === 'Escape') {
 			this_.activeCell = { row: null, col: null };
 		}
+	});
+	// Remove the highlight from the currently highlighted grid cell
+	document.querySelector('*').addEventListener('click', event => {
+		const grid = document.querySelector('#grid');
+		if (isOutsideClick(event, grid))
+			this_.activeCell = { row: null, col: null }; 
 	});
 }
 

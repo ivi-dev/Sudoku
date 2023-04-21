@@ -532,6 +532,16 @@ export default {
 		this.activeCell = { row: null, col: null };
 	},
 	/**
+	 * Determine whether a grid cell is currently highlighted.
+	 * 
+	 * @return {boolean} True if a grid cell is currently
+	 * highlighted, false otherwise.
+	 */
+	isCellActive() {
+		return this.activeCell.row !== null  && 
+			   this.activeCell.col !== null;
+	},
+	/**
 	 * Set a cell's value.
 	 * 
 	 * @param {Cell} cell The cell to set.

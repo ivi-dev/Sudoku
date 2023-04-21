@@ -44,7 +44,7 @@ function indices(arr) {
  * of a certain DOM element.
  * 
  * @param {MouseEvent} event The click event.
- * @param {Node|Node[]} boundary the DOM node(s) serving 
+ * @param {Node|NodeList} boundary the DOM node(s) serving 
  * as a boundary for determining the click position.
  * If the clicked-on element is inside of that boundary 
  * node, or the boudnary node itself has been clicked on, 
@@ -56,6 +56,10 @@ function indices(arr) {
  * @return {boolean} True if the click has happened outside
  * of the boundary node, meaning the boundary node itslef or 
  * any of its childern has been clicked on, false otherwise.
+ * 
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Node
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/NodeList
  */
 function isOutsideClick(event, boundary) {
     if (!(boundary instanceof NodeList))
@@ -79,6 +83,8 @@ function isOutsideClick(event, boundary) {
  * parent nodes of.
  * @return {Node[]} An array of the parents 
  * of the provided DOM node.
+ * 
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Node
  */
 function parents(node) {
     let parent = node.parentNode
@@ -101,6 +107,8 @@ function parents(node) {
  * @param {Node} nodeB A node to test for childhood.
  * @return {boolean} True if nodeA is a parent of nodeB, 
  * false otherwise.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Node
  */
 function isParent(nodeA, nodeB) {
     const parents_ = parents(nodeB)
@@ -120,6 +128,9 @@ function isParent(nodeA, nodeB) {
  * @return {boolean} True if the provided
  * node is equal to one of the provided
  * comparison nodes, false otherwise.
+ * 
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Node
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/NodeList
  */
 function isAnyOf(node, nodes) {
     for (const n of nodes)

@@ -8,6 +8,7 @@
 import { grid } from './grid.js';
 import hooks from './hooks.js';
 import data from './data.js';
+import watch from './watch.js';
 import methods from './methods.js';
 
 /**
@@ -22,5 +23,7 @@ import methods from './methods.js';
  * @see https://vuejs.org/api/application.html
  */
 export function initGame() {
-	Vue.createApp({...hooks, data, methods}).mount('#game');
+	Vue.createApp({
+        ...hooks, data, watch, methods
+    }).mount('#game');
 }

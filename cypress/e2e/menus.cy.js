@@ -208,22 +208,51 @@ describe('Menu operations', () => {
         })
       })
 
-      describe('The active theme changes', () => {
-        it('to dark', () => {
+      it('the game\'s difficulty persists across page reloads', () => {
+        cy.session('session-difficulty', () => {
           cy.visit('http://localhost:8080')
           cy.get('.menu.settings .show-settings').click()
-          cy.get('.menu.settings .control.theme').select('Dark') 
-          cy.get('#game .bg').should('have.class', 'dark')
-          cy.get('#grid').should('have.class', 'dark')
+          cy.get('.menu.settings .control.difficulty').select('Medium')
+          cy.get('.prompt.change-difficulty').find('button.yes').click()
         })
+        cy.visit('http://localhost:8080')
+        cy.getAllLocalStorage().then(data => {
+          const difficulty = JSON.parse(data['http://localhost:8080']['dev.ivi.Sudoku'])
+                                 .settings.difficulty
+          expect(difficulty).to.equal('Medium')
+        })
+      })
+    })
 
-        it('and light', () => {
+    describe('The active theme changes', () => {
+      it('to dark', () => {
+        cy.visit('http://localhost:8080')
+        cy.get('.menu.settings .show-settings').click()
+        cy.get('.menu.settings .control.theme').select('Dark') 
+        cy.get('#game .bg').should('have.class', 'dark')
+        cy.get('#grid').should('have.class', 'dark')
+      })
+
+      it('and light', () => {
+        cy.visit('http://localhost:8080')
+        cy.get('.menu.settings .show-settings').click()
+        cy.get('.menu.settings .control.theme').select('Dark') 
+        cy.get('.menu.settings .control.theme').select('Light') 
+        cy.get('#game .bg').should('not.have.class', 'dark')
+        cy.get('#grid').should('not.have.class', 'dark')
+      })
+
+      it('and persists across page reloads', () => {
+        cy.session('session-theme', () => {
           cy.visit('http://localhost:8080')
           cy.get('.menu.settings .show-settings').click()
-          cy.get('.menu.settings .control.theme').select('Dark') 
-          cy.get('.menu.settings .control.theme').select('Light') 
-          cy.get('#game .bg').should('not.have.class', 'dark')
-          cy.get('#grid').should('not.have.class', 'dark')
+          cy.get('.menu.settings .control.theme').select('Dark')
+        })
+        cy.visit('http://localhost:8080')
+        cy.getAllLocalStorage().then(data => {
+          const theme = JSON.parse(data['http://localhost:8080']['dev.ivi.Sudoku'])
+                                 .settings.theme
+          expect(theme).to.equal('Dark')
         })
       })
     })

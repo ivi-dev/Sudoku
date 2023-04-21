@@ -6,6 +6,8 @@
  */
 
 
+import { set as save, DIFFICULTY } from './persistence.js';
+
 /**
  * Attach the game's event handlers to their corresponding
  * DOM elements. 
@@ -59,6 +61,7 @@ function attachEeventHandlers(this_) {
     		'.menu.settings .control.difficulty'
     	);
     	this_.menus.settings.difficulty.active = selector.value;
+    	save(DIFFICULTY, this_.menus.settings.difficulty.active);
 		this_.fillGrid();
     	this_.prompts.difficultyChange = false;
 	});

@@ -12,6 +12,17 @@
 	<link rel="stylesheet" href="./src/assets/style/css/main.css">
 </head>
 <body>
+	<div id="coverall">
+		<div class="content hidden">
+			<img src="src/assets/img/loader-3.svg" alt="Loading animation" class="loader">
+			<h1 class="title">Game loading, please wait...</h1>
+		</div>
+	</div>
+	<noscript>
+		<h2 class="title">
+			To use this app, please enable JavaScript in your browser.
+		</h2>
+	</noscript>
 	<div id="game">
 		<div :class="[{ dark: menus.settings.theme.active === 'Dark' }, 'bg']"></div>
 		<%- include('src/assets/inc/prompts/_all.ejs'); %>

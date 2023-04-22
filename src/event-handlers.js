@@ -19,6 +19,12 @@ import { isOutsideClick, isAnyOf } from './util.js';
  * @see https://vuejs.org/guide/introduction.html#api-styles
  */
 function attachEeventHandlers(this_) {
+	// Show the page loading indicator upon page initial load
+	document.querySelector('#coverall .content').classList.remove('hidden');
+	// Hide the splash screen when the page is fully loaded
+	window.addEventListener('load', () => {
+		document.querySelector('#coverall').classList.add('hidden');
+	});
 	// Place a number in the currently active grid cell on pressing
 	// a digit key on the keyboard
 	document.addEventListener('keypress', event => {

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Sudoku 1.1.0</title>
+	<title>Sudoku 1.2.0</title>
 	<link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 	<link rel="icon" type="image/x-icon" href="./src/assets/img/favicon.ico">
@@ -12,6 +12,17 @@
 	<link rel="stylesheet" href="./src/assets/style/css/main.css">
 </head>
 <body>
+	<div id="coverall">
+		<div class="content hidden">
+			<img src="src/assets/img/loader-3.svg" alt="Loading animation" class="loader">
+			<h1 class="title">Game loading, please wait...</h1>
+		</div>
+	</div>
+	<noscript>
+		<h2 class="title">
+			To use this app, please enable JavaScript in your browser.
+		</h2>
+	</noscript>
 	<div id="game">
 		<div :class="[{ dark: menus.settings.theme.active === 'Dark' }, 'bg']"></div>
 		<div class="prompt-wrap">

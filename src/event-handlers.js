@@ -7,6 +7,7 @@
 
 
 import { set as save, DIFFICULTY } from './persistence.js';
+import { isOutsideClick, isAnyOf } from './util.js';
 
 /**
  * Attach the game's event handlers to their corresponding
@@ -18,11 +19,17 @@ import { set as save, DIFFICULTY } from './persistence.js';
  * @see https://vuejs.org/guide/introduction.html#api-styles
  */
 function attachEeventHandlers(this_) {
+	// Show the page loading indicator upon page initial load
+	document.querySelector('#coverall .content').classList.remove('hidden');
+	// Hide the splash screen when the page is fully loaded
+	window.addEventListener('load', () => {
+		document.querySelector('#coverall').classList.add('hidden');
+	});
 	// Place a number in the currently active grid cell on pressing
 	// a digit key on the keyboard
 	document.addEventListener('keypress', event => {
 		const val = Number(event.key);
-		if (_.includes(this_.numbers, val) && this_.activeCell) {
+		if (_.includes(this_.numbers, val) && this_.isCellActive()) {
 			this_.setCell(this_.activeCell, val);
 			const gameComplete  = this_.validateGrid(),
 				  hasEmptyCells = this_.hasEmptyCells();
@@ -106,12 +113,28 @@ function attachEeventHandlers(this_) {
 			this_.toggleHelp(false);
 		}
 	});
+	// Close all menus on clicking outside them
+	document.addEventListener('click', event => {
+		const menus = document.querySelectorAll('.menu'),
+		      fixedButtons = document.querySelectorAll('.fixed-button');
+		if (isOutsideClick(event, menus) && 
+			isOutsideClick(event, fixedButtons)) {
+			this_.toggleSettings(false);
+			this_.toggleHelp(false);
+		}
+	});
 	// Remove the highlight from the currently selected grid cell
 	// on pressing 'Escape'
 	document.addEventListener('keydown', event => {
 		if (event.key === 'Escape') {
 			this_.activeCell = { row: null, col: null };
 		}
+	});
+	// Remove the highlight from the currently highlighted grid cell
+	document.querySelector('*').addEventListener('click', event => {
+		const grid = document.querySelector('#grid');
+		if (isOutsideClick(event, grid))
+			this_.activeCell = { row: null, col: null }; 
 	});
 }
 

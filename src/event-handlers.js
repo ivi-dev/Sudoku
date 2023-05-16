@@ -55,6 +55,7 @@ function attachEeventHandlers(this_) {
 		    .addEventListener('click', () => {
 		this_.fillGrid();
     	this_.prompts.newGame = false;
+    	this_.gameComplete = null;
 	});
     // Continue the current game on clicking the prompt's 'No' button
 	document.querySelector('.prompt.new-game button.no')
@@ -71,6 +72,7 @@ function attachEeventHandlers(this_) {
     	save(DIFFICULTY, this_.menus.settings.difficulty.active);
 		this_.fillGrid();
     	this_.prompts.difficultyChange = false;
+    	this_.gameComplete = null;
 	});
     // Continue on the current difficulty on clicking the prompt's 'No' button
 	document.querySelector('.prompt.change-difficulty button.no')

@@ -1,3 +1,5 @@
+@use "sass:color"
+
 @use "./_colors.sass"
 @use "./subgrid.sass"
 @use "./util.sass"
@@ -17,6 +19,8 @@ body
 	padding: 0
 	font-family: sans-serif
 	overflow: hidden
+	background: white
+	background: radial-gradient(circle, rgba(255, 70, 70, 1) 0%, rgba(251, 229, 102, 1) 100%)
 
 noscript .title
 	text-align: center
@@ -71,9 +75,11 @@ noscript .title
 	border-bottom: 3px solid
 	border-right: 3px solid
 	margin-top: -8em
+	background: color.adjust(white, $alpha: -0.1)
 
 	&.dark 
 		border-color: colors.$color-text-on-dark
+		background: color.adjust(black, $alpha: -0.9)
 
 	&.over-dark 
 		color: rgba(255, 255, 255, 0.6)

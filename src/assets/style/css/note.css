@@ -1,7 +1,10 @@
 .note-wrap {
   position: absolute;
-  left: 33%;
+  left: 0;
   bottom: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .note {
@@ -40,13 +43,13 @@
   border: 2px solid green;
 }
 .note.error {
-  outline-color: tomato;
-  background: tomato;
+  outline-color: crimson;
+  background: crimson;
   color: white;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
 }
 .note.error .icon.error {
   display: flex !important;
-  color: tomato;
-  border: 2px solid tomato;
+  color: crimson;
+  border: 2px solid crimson;
 }

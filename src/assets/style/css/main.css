@@ -50,8 +50,11 @@
 
 .note-wrap {
   position: absolute;
-  left: 33%;
+  left: 0;
   bottom: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .note {
@@ -90,22 +93,24 @@
   border: 2px solid green;
 }
 .note.error {
-  outline-color: tomato;
-  background: tomato;
+  outline-color: crimson;
+  background: crimson;
   color: white;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.4);
 }
 .note.error .icon.error {
   display: flex !important;
-  color: tomato;
-  border: 2px solid tomato;
+  color: crimson;
+  border: 2px solid crimson;
 }
 
 .prompt-wrap {
   position: absolute;
-  left: 33%;
-  top: 0px;
+  left: 0;
+  top: 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .prompt {
@@ -309,6 +314,8 @@ body {
   padding: 0;
   font-family: sans-serif;
   overflow: hidden;
+  background: white;
+  background: radial-gradient(circle, rgb(255, 70, 70) 0%, rgb(251, 229, 102) 100%);
 }
 
 noscript .title {
@@ -369,9 +376,11 @@ noscript .title {
   border-bottom: 3px solid;
   border-right: 3px solid;
   margin-top: -8em;
+  background: rgba(255, 255, 255, 0.9);
 }
 #grid.dark {
   border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.1);
 }
 #grid.over-dark {
   color: rgba(255, 255, 255, 0.6);

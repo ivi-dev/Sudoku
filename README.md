@@ -13,48 +13,6 @@ fill the blank squares with the correct numbers, making
 sure that any number appears exactly once in any of the 
 grid's rows, columns and 3x3 subgrids.
 
-Here are some tips to help you out:
-
-1. **Look for the Easy Solutions**
-
-Many puzzles will leave one or two blanks either in a line or in 
-a box. A line might be missing a 5 and a 6, but a box along that 
-line will already have a 6 in it, so you know this blank must be 
-a 5, and the other blank must be the 6. The same may be the case 
-for one or two missing numbers in the smaller boxes. Filling these 
-blanks will get you on your way to a solution.
-
-2. **Seek the Missing Numbers**
-
-As you fill in the easy solutions, you may start to find other 
-missing numbers that are easy to place. In the above example, 
-the box now has a 5, and that may help you solve that 3×3 area,
-or might help you solve the lines that cross that area.
-
-3. **Keep Scanning the Entire Puzzle**
-
-If you get stuck, don’t concentrate too hard on one part of the 
-grid. Let your eye scan the puzzle to find another place on the 
-grid with new possibilities. You may find another quick solution.
-
-4. **Constantly Re-Evaluate the Grid**
-
-Whenever you place a new number, see if that opens up a new row 
-or box. It might narrow down the possibilities or make another 
-number obvious. If you keep asking yourself which numbers you’re 
-missing in a line or grid, you might find it more quickly.
-
-5. **Be Patient and Enjoy the Hunt**
-
-Remember that although you want to finish a puzzle, the point is 
-to enjoy the challenge and work your brain as you relax. If you 
-find yourself getting frustrated, walk away. Let your mind clear 
-and try again later. The most important thing is to have fun.
-
-If you need help at any point in the game, just open up the in-game
-help menu by clicking the question mark button on the side of the 
-screen or pressing 'H' on the keyboard.
-
 # What's this app about?
 
 This app delivers Sudoku to your device's browser, so that
@@ -85,6 +43,13 @@ The app is a Node package, so installing dependencies is as easy as:
 
 	npm i
 
+## Compiling templates and styles
+
+Before starting the app locally you need to perform a one-time
+compilation of its templates and style files by running this:
+
+	npm run build
+
 ## Running locally
 
 To run the app locally in a browser, do:
@@ -93,14 +58,66 @@ To run the app locally in a browser, do:
 
 which will start the local development 
 [http server](https://www.npmjs.com/package/http-server) 
-and will launch the app in your default browser.
+and launch the app in your default browser.
 
-# Technical documentation
+## Available NPM scripts
 
-The app's full technical API documentation is hosted 
-[here](https://ivi-dev.github.io/Sudoku/docs). 
-You'll find low-level details about the source code's 
-structure and organization there.
+The project defines several NPM scripts facilitating development and
+testing related activities. Here they are at the time of this writing:
+
+Serve the app through the local [http-server](https://www.npmjs.com/package/http-server).
+Do this before running any [Cypress](https://www.cypress.io/) 
+E2E tests:
+
+	npm run serve
+
+Serve the app through the local [http-server](https://www.npmjs.com/package/http-server)
+and launch the app in your default broswer:
+
+	npm run start
+
+Continiously compile .sass files as soon as there had been a change
+in any one of them, producing .css files in the process:
+
+	npm run sass:watch
+
+Perform a single .sass files compilation, producing .css files:
+
+	npm run sass:compile
+
+Perform a single compilation of .ejs template files, producing .html
+files in the process:
+
+	npm run ejs:compile
+
+Regenerate the project's source code documentation:
+
+	npm run docs
+
+Perform a *full build* of the application, including
+compiling .sass and .ejs files and regenerating source
+documentation:
+
+	npm run build
+
+Launch the [Cypress](https://docs.cypress.io/guides/getting-started/opening-the-app)'s 
+helper application in a browser:
+
+	npm run cyp:open
+
+Run [Cypress](https://www.cypress.io/) E2E tests in the corresponding browser headlessly:
+
+	npm run cyp:run:chrome
+
+	npm run cyp:run:firefox
+
+	npm run cyp:run:edge
+
+Run [Cypress](https://www.cypress.io/) E2E tests in all 
+[Cypress-supported browsers](https://docs.cypress.io/guides/guides/launching-browsers#Browser-versions-supported)
+headlessly, sequentially:
+
+	npm run cyp:all
 
 # Testing
 
@@ -130,7 +147,14 @@ Running all tests in all supported browsers headlessly, sequentially:
 
 	npm run cyp:all
 
-# Try it out for yourself
+# Technical documentation
+
+The app's full technical API documentation is hosted 
+[here](https://ivi-dev.github.io/Sudoku/docs). 
+You'll find low-level details about the source code's 
+structure and organization there.
+
+# Try it out
 
 The game's currenly hosted 
 [here](https://ivi-dev.github.io/Sudoku/). 

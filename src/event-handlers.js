@@ -138,6 +138,63 @@ function attachEeventHandlers(this_) {
 		if (isOutsideClick(event, grid))
 			this_.activeCell = { row: null, col: null }; 
 	});
+	// Move the cell highlight (if present) up/down/left/right 
+	// on pressing an arrow key
+	document.querySelector('*').addEventListener('keydown', e => {
+		const dir = {
+			'ArrowUp'   : 'up',
+			'ArrowDown' : 'down',
+			'ArrowLeft' : 'left',
+			'ArrowRight': 'right',
+		};
+		moveActiveCell(dir[e.key], this_);
+	})
+}
+
+/**
+ * Move the currently highlighted grid cell
+ * in the requested direction.
+ * 
+ * @param {string} dir The direction to
+ * mmove the currently highlighted grid
+ * cell in, one of 'up', 'down', 'left' 
+ * or 'right'.
+ * @param {object} this_ A reference to the 
+ * [app]{@link https://vuejs.org/api/application.html} 
+ * object.
+ * @see https://vuejs.org/guide/introduction.html#api-styles
+ */
+function moveActiveCell(dir, app) {
+	switch (dir) {
+		case 'up':
+			if (app.activeCell.row > 0)
+				app.activeCell = { 
+					...app.activeCell, 
+					row: app.activeCell.row - 1
+				};
+			break;
+		case 'down':
+			if (app.activeCell.row < app.grid.length - 1)
+				app.activeCell = { 
+					...app.activeCell, 
+					row: app.activeCell.row + 1
+				};
+			break;
+		case 'left':
+			if (app.activeCell.col > 0)
+				app.activeCell = { 
+					...app.activeCell, 
+					col: app.activeCell.col - 1
+				};
+			break;
+		case 'right':
+			if (app.activeCell.col < app.grid[0].length - 1)
+				app.activeCell = { 
+					...app.activeCell, 
+					col: app.activeCell.col + 1
+				};
+			break;
+	}
 }
 
 export default attachEeventHandlers;
